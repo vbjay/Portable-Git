@@ -1,6 +1,7 @@
 [core]
 	symlinks = false
 	autocrlf = true
+	editor = /bin/nano
 [color]
 	diff = auto
 	status = auto
