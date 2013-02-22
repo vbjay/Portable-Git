@@ -20,3 +20,9 @@
 	textconv = astextplain
 [rebase]
 	autosquash = true
+[diff]
+	tool = winmerge
+[difftool "winmerge"]
+	cmd = winmerge \"$LOCAL\" \"$REMOTE\"
+[difftool]
+	prompt = false
