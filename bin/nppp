@@ -1,2 +1,2 @@
 #!/bin/sh
-exec /share/NPPlusPlus/notepad++.exe "$@"
+exec /share/NPPlusPlus/notepad++.exe -nosession "$@"
