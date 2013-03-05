@@ -1,3 +1,10 @@
 #!/bin/sh
-echo Launching WinMergeU.exe: $1 $2
-"/share/winmerge/WinMergeU.exe" -e -ub -dl "Base" -dr "Mine" "$1" "$2"
+NULL="/dev/null"
+if [ "$2" = "$NULL" ] ; then
+    echo "removed: $3"
+elif [ "$1" = "$NULL" ] ; then
+    echo "added: $3"
+else
+    echo "changed: $3"
+    "/share/winmerge/WinMergeU.exe" -e -ub -dl "Base" -dr "Mine" "$1" "$2" | cat
+fi

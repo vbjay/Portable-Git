@@ -1,12 +1,14 @@
 [core]
 	symlinks = false
 	autocrlf = true
-	editor = /bin/nano
+	editor = nppp
+	safecrlf = warn
 [color]
 	diff = auto
 	status = auto
 	branch = auto
 	interactive = true
+	ui = auto
 [pack]
 	packSizeLimit = 2g
 [help]
@@ -21,8 +23,15 @@
 [rebase]
 	autosquash = true
 [diff]
-	tool = winmerge
+  tool = winmerge
+	mnemonicprefix = true
+	renames = copies
 [difftool "winmerge"]
-	cmd = winmerge \"$LOCAL\" \"$REMOTE\"
+	path = /share/winmerge/WinMergeU.exe
+	cmd = \"/share/winmerge/WinMergeU.exe\" -e -ub -dl \"Base\" -dr \"Mine\" \"$LOCAL\" \"$REMOTE\"
+	name = winmerge
+	trustExitCode = true
 [difftool]
-	prompt = false
+  prompt = false
+[merge]
+	stat = true
