@@ -1,16 +1,24 @@
 Set objNetwork = Wscript.CreateObject("Wscript.Network")
+Set fso = CreateObject("Scripting.FileSystemObject")
+
 currUser = LCase(objNetwork.UserName)
 Const strComputer = "." 
   Dim objWMIService, colProcessList
   Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
-  Set colProcessList = objWMIService.ExecQuery("SELECT * FROM Win32_Process WHERE Name = 'ssh-agent.exe'")
+  Set colProcessList = objWMIService.ExecQuery("SELECT * FROM Win32_Process")
+  spath=fso.GetParentFolderName(WScript.ScriptFullName)
   For Each objProcess in colProcessList 
-	If objProcess.GetOwner ( User, Domain ) = 0 Then
-		If LCase(User) = currUser Then
-			objProcess.Terminate() 
+	If InStr(objProcess.ExecutablePath,spath)>0 Then
+		If objProcess.GetOwner ( User, Domain ) = 0 Then
+			If LCase(User) = currUser Then
+				'Wscript.echo(objProcess.ExecutablePath & vbcrlf)
+				objProcess.Terminate() 
+			end if
 		end if
 	end if
   Next  
+
+
 
 
 'Delete Temp shortcut.
