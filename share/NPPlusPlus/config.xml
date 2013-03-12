@@ -13,7 +13,7 @@
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" size="4" replaceBySpace="no" />
         <!--App position-->
-        <GUIConfig name="AppPosition" x="36" y="33" width="1207" height="762" isMaximized="no" />
+        <GUIConfig name="AppPosition" x="79" y="93" width="1207" height="762" isMaximized="no" />
         <!-- For the primary scintilla view,
              2 status for Attribut lineNumberMargin, bookMarkMargin, indentGuideLine and currentLineHilitingShow: "show" or "hide"
              4 status for Attribut folderMarkStyle : "simple", "arrow", "circle" and "box"  -->
@@ -93,7 +93,10 @@
     </GUIConfigs>
     <!-- The History of opened files list -->
     <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="1" transparency="150" dotMatchesNewline="no" />
-    <History nbMaxFile="15" inSubMenu="no" customLength="-1" />
+    <History nbMaxFile="15" inSubMenu="no" customLength="-1">
+        <File filename="C:\Documents and Settings\jasbury\Local Settings\Temporary Internet Files\Content.IE5\AZCYGS77\portable-git-windows-setting-home-environment-variable[1]" />
+        <File filename="C:\Documents and Settings\jasbury\My Documents\PortableGit\1stTimeSetup.vb" />
+    </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
         <ProjectPanel id="1" workSpaceFile="" />

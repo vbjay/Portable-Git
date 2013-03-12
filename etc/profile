@@ -229,3 +229,6 @@ else
         start_agent
     fi
 fi
+
+echo Run GetingStarted/1stTimeSetup.sh to do the initial configuration process.
+echo
