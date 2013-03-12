@@ -42,7 +42,7 @@ if [ -z "$HOME" -o ! -d "$HOME" ]; then
   fi
 fi
 #edit this line to point to a folder under the home directory.
-#HOME=/home/
+HOME=/home/
 if [ ! -d "$HOME" ]; then
 	printf "\n\033[31mERROR: HOME directory '$HOME' doesn't exist!\033[m\n\n"
 	echo "This is an error which might be related to msysGit issue 108."
