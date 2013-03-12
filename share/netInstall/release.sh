@@ -54,7 +54,8 @@ cd .. &&
  echo 'OverwriteMode="2"' &&
  echo 'RunProgram="\"%%T\installer-tmp\bin\sh.exe\" /setup-msysgit.sh"' &&
  echo 'Delete="%%T\installer-tmp"' &&
- echo 'RunProgram="\"%%T\PortableGit\Git Bash.vbs"' &&
+  echo 'RunProgram="\"%%T\PortableGit\bin\sh.exe\" /PortableGit/GettingStarted/1stTimeSetup.sh"' &&
+  echo 'RunProgram="\"%%T\PortableGit\Git Bash.vbs"' &&
  echo ';!@InstallEnd@!' &&
  cat "$TMPPACK") > "$TARGET" &&
  echo "Success! You'll find the new installer at \"$TARGET\"." &&

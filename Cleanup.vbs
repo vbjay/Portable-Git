@@ -1,3 +1,8 @@
+'####
+'Deletes the temp shortcut that allows the shell to be run from any directory 
+'and kills all processes that were started by the current user and are from this folder and sub folders.
+'####
+
 Set objNetwork = Wscript.CreateObject("Wscript.Network")
 Set fso = CreateObject("Scripting.FileSystemObject")
 
@@ -17,9 +22,6 @@ Const strComputer = "."
 		end if
 	end if
   Next  
-
-
-
 
 'Delete Temp shortcut.
 Set fso = CreateObject("Scripting.FileSystemObject")

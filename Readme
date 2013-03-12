@@ -8,7 +8,7 @@ This project is my toolset to use portable git.  Use git clone git://github.com/
 STEPS to use this project:
 ============
 1.	Download the toolset.
-2.	Run the DeleteGitShortcut.vbs file if you have moved the toolset to another directory.
+2.	Run the Cleanup.vbs file if you have moved the toolset to another directory.
 3.	Run the Git Bash.vbs file to get a git shell and to setup the paths.
 4.	Configure your username and email by running
 		git config --global user.name <your name here>
@@ -19,4 +19,5 @@ STEPS to use this project:
 
 TIPS
 ============
-I have included Git Extensions as a submodule.  To run it just run git ex.  If it can't fimd it, you downloaded the zip and you need to pull down the repository by running Use git clone git://github.com/vbjay/Portable-Git.git --recursive in an empty directory.  
+I have included Git Extensions as a submodule.  To run it just run git ex.  If it can't fimd it, you downloaded
+ the zip and you need to pull down the repository by running Use git clone git://github.com/vbjay/Portable-Git.git --recursive in an empty directory.  
