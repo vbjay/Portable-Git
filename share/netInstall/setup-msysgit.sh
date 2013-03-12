@@ -52,5 +52,6 @@ done
 git clone git://github.com/vbjay/Portable-Git.git PortableGit --recursive && 
 cd ./PortableGit/share/GitExtensions/ &&
 git checkout master
-
-read -p "Copy any needed files to the home directory and press [Enter] key to close the insatall and run the Git shell..."
+echo
+echo "Copy any needed files to the home directory "
+read -p  "Press [Enter] key to close the install and run the Git shell..."
