@@ -1,17 +1,14 @@
 #!/bin/sh
 
-# Recreate msysGit-netinstall-$VERSION.exe
+# Recreate PortableGit-netinstall.exe
 
-test -z "$1" && {
-	echo "Usage: $0 <version> [<msysgitbranch> [<4msysgitbranch>]]"
-	exit 1
-}
 
-MSYSGITBRANCH="$2"
+
+MSYSGITBRANCH="$1"
 test -z "$MSYSGITBRANCH" && MSYSGITBRANCH=master
-FOURMSYSGITBRANCH="$3"
+FOURMSYSGITBRANCH="$2"
 
-TARGET="$HOME"/PortableGit-netinstall-"$1".exe
+TARGET=/PortableGit-netinstall.exe
 TMPDIR=/tmp/installer-tmp
 OPTS7="-m0=lzma -mx=9 -md=64M"
 TMPPACK=/tmp.7z
@@ -53,12 +50,14 @@ cd .. &&
  echo 'ExtractTitle="Extracting..."' &&
  echo 'GUIFlags="8+32+64+256+4096"' &&
  echo 'GUIMode="1"' &&
- echo 'InstallPath="C:\\PortableGit"' &&
+ echo 'InstallPath="C:\\"' &&
  echo 'OverwriteMode="2"' &&
  echo 'RunProgram="\"%%T\installer-tmp\bin\sh.exe\" /setup-msysgit.sh"' &&
  echo 'Delete="%%T\installer-tmp"' &&
  echo 'RunProgram="\"%%T\PortableGit\Git Bash.vbs"' &&
  echo ';!@InstallEnd@!' &&
  cat "$TMPPACK") > "$TARGET" &&
-echo "Success! You'll find the new installer at \"$TARGET\"." &&
-rm $TMPPACK
+ echo "Success! You'll find the new installer at \"$TARGET\"." &&
+ cd / &&
+ git add "$TARGET" &&
+ rm $TMPPACK

@@ -3,6 +3,8 @@
 # We're already in the install directory
 INSTALL_PATH="$(pwd)"
 export PATH="$INSTALL_PATH/installer-tmp/bin:$PATH"
+export PATH="$INSTALL_PATH/PotableGit/bin::$PATH"
+
 
 error () {
     echo "* error: $*"
@@ -48,6 +50,7 @@ do
 done
 
 git clone git://github.com/vbjay/Portable-Git.git PortableGit --recursive && 
-cd ./PortableGit/share/GitExtensions/&&
-git checkout master&&
-git pull
+cd ./PortableGit/share/GitExtensions/ &&
+git checkout master
+
+read -p "Press [Enter] key to close..."
