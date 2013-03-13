@@ -1,3 +1,4 @@
+#!/bin/sh
 echo "Please enter your name."
 
 read -r "NAME"
