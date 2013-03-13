@@ -57,6 +57,7 @@ cd .. &&
  echo ';!@InstallEnd@!' &&
  cat "$TMPPACK") > "$TARGET" &&
  echo "Success! You'll find the new installer at \"$TARGET\"." &&
- cd / &&
- git add "$TARGET" &&
  rm $TMPPACK
+ 
+ #Delete the next line to skip upload to vbjaysolutions.com
+$SHARE/upload.sh "$TARGET"
