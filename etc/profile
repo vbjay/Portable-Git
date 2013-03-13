@@ -187,7 +187,8 @@ elif [ -e /etc/bash_profile ]; then
 	. /etc/bash_profile
 fi
 
-
+if [-f ~/.ssh/id_rsa]
+then
 SSH_ENV="$HOME/.ssh/environment"
 
 # start the ssh-agent
@@ -229,6 +230,9 @@ else
         start_agent
     fi
 fi
-
+else
+echo
 echo Run GetingStarted/1stTimeSetup.sh to do the initial configuration process.
 echo
+fi
+
