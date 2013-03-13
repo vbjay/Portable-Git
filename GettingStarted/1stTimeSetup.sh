@@ -1,9 +1,10 @@
 #!/bin/sh
 echo "Please enter your name."
-
-read -r "NAME"
 oldIFS=$IFS
 IFS="$(printf '\n')" 
+
+read -r "NAME"
+
 echo "Please enter your email address."
 read -r "EMAIL"
 
