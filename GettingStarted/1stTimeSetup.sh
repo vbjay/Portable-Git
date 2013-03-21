@@ -24,5 +24,7 @@ IFS=$oldIFS
 
 if [ ! -f ~/.ssh/id_rsa ];
 then
+echo "Please enter a password for your new ssh keys.  If you don't want a password just press enter."
+echo "Each time you load your ssh key, you will have to enter this password."
     ssh-keygen
 fi

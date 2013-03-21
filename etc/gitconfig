@@ -37,3 +37,17 @@
 	stat = true
 [push]
 	default = simple
+[alias]
+        amend	= commit --amend -a
+        br		= branch 
+        co		= checkout
+		cob		= checkout -b
+        ds        = diff --staged
+        di        = diff
+        fetchall  = fetch -v --all
+        log-fancy = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative
+        log-me    = !UN=$(git config user.name)&& git log --author="\"$UN\"" --pretty=format:'%h %cd %s' --date=short
+        log-nice  = log --graph --decorate --pretty=oneline --abbrev-commit
+        panic     = !tar cvf ../git_panic.tar *
+        st        = status
+        wdiff     = diff --word-diff=plain
