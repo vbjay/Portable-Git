@@ -94,26 +94,8 @@
         </GUIConfig>
     </GUIConfigs>
     <!-- The History of opened files list -->
-    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="1" transparencyMode="1" transparency="150" dotMatchesNewline="no">
-        <Find name="        " />
-        <Replace name="\t" />
-    </FindHistory>
+    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="1" transparency="150" dotMatchesNewline="no" />
     <History nbMaxFile="15" inSubMenu="no" customLength="-1">
-        <File filename="C:\PortableGITAndExtensions\PortableGIT\share\netInstall\setup-msysgit.sh" />
-        <File filename="C:\PortableGITAndExtensions\PortableGIT\share\netInstall\release.sh" />
-        <File filename="C:\PortableGITAndExtensions\PortableGIT\share\netInstall\ming.sh" />
-        <File filename="C:\PortableGITAndExtensions\PortableGIT\share\netInstall\gitconfig" />
-        <File filename="C:\PortableGITAndExtensions\PortableGIT\share\netInstall\fileList.txt" />
-        <File filename="C:\PortableGITAndExtensions\PortableGIT\share\netInstall\fileList-mingw.txt" />
-        <File filename="D:\My Documents\Git\PortableGit\home\gitkeep" />
-        <File filename="D:\My Documents\Git\PortableGit\home\.ssh\known_hosts" />
-        <File filename="D:\My Documents\Git\PortableGit\home\.ssh\id_rsa.pub" />
-        <File filename="D:\My Documents\Git\PortableGit\home\.ssh\id_rsa" />
-        <File filename="D:\My Documents\Git\PortableGit\home\.ssh\git.ppk" />
-        <File filename="D:\My Documents\Git\PortableGit\home\.ssh\environment" />
-        <File filename="D:\My Documents\Git\PortableGit\home\.lesshst" />
-        <File filename="D:\My Documents\Git\PortableGit\home\.gitk" />
-        <File filename="D:\My Documents\Git\PortableGit\home\.bash_history" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
