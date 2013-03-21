@@ -13,11 +13,11 @@
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" size="4" replaceBySpace="no" />
         <!--App position-->
-        <GUIConfig name="AppPosition" x="-91" y="111" width="1207" height="762" isMaximized="no" />
+        <GUIConfig name="AppPosition" x="33" y="177" width="1207" height="757" isMaximized="no" />
         <!-- For the primary scintilla view,
              2 status for Attribut lineNumberMargin, bookMarkMargin, indentGuideLine and currentLineHilitingShow: "show" or "hide"
              4 status for Attribut folderMarkStyle : "simple", "arrow", "circle" and "box"  -->
-        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" folderMarkStyle="box" indentGuideLine="show" currentLineHilitingShow="show" Wrap="no" edge="no" edgeNbColumn="100" wrapSymbolShow="hide" zoom="0" whiteSpaceShow="hide" eolShow="hide" lineWrapMethod="aligned" zoom2="0" borderWidth="2" />
+        <GUIConfig name="ScintillaPrimaryView" lineNumberMargin="show" bookMarkMargin="show" folderMarkStyle="box" indentGuideLine="show" currentLineHilitingShow="show" Wrap="no" edge="no" edgeNbColumn="100" wrapSymbolShow="hide" zoom="0" whiteSpaceShow="show" eolShow="hide" lineWrapMethod="aligned" zoom2="0" borderWidth="2" />
         <!-- For the secodary scintilla view,
              2 status for Attribut lineNumberMargin, bookMarkMargin, indentGuideLine and currentLineHilitingShow: "show" or "hide"
              4 status for Attribut folderMarkStyle : "simple", "arrow", "circle" and "box" -->
@@ -85,6 +85,7 @@
         <GUIConfig name="titleBar" short="no" />
         <GUIConfig name="stylerTheme" path="themes\Waher-style.xml" />
         <GUIConfig name="DockingManager" leftWidth="200" rightWidth="200" topHeight="200" bottomHeight="200">
+            <PluginDlg pluginName="ComparePlugin.dll" id="9" curr="1" prev="-1" isVisible="no" />
             <PluginDlg pluginName="NppFTP.dll" id="0" curr="1" prev="-1" isVisible="no" />
             <ActiveTabs cont="0" activeTab="-1" />
             <ActiveTabs cont="1" activeTab="-1" />
@@ -93,22 +94,26 @@
         </GUIConfig>
     </GUIConfigs>
     <!-- The History of opened files list -->
-    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="1" transparency="150" dotMatchesNewline="no" />
+    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="1" transparencyMode="1" transparency="150" dotMatchesNewline="no">
+        <Find name="        " />
+        <Replace name="\t" />
+    </FindHistory>
     <History nbMaxFile="15" inSubMenu="no" customLength="-1">
-        <File filename="C:\Documents and Settings\jasbury\Local Settings\Temporary Internet Files\Content.IE5\AZCYGS77\portable-git-windows-setting-home-environment-variable[1]" />
-        <File filename="C:\Documents and Settings\jasbury\My Documents\PortableGit\1stTimeSetup.vb" />
-        <File filename="C:\PortableGITAndExtensions\PortableGIT\share\NPPlusPlus\plugins\Config\tidy1.cfg" />
-        <File filename="C:\Users\Jay\AppData\Local\Temp\vbjay@vbjaysolutions.com.log" />
-        <File filename="C:\PortableGITAndExtensions\PortableGIT\etc\profile" />
-        <File filename="C:\PortableGITAndExtensions\PortableGIT\share\netInstall\uploadhelper" />
-        <File filename="C:\PortableGITAndExtensions\PortableGIT\share\netInstall\upload.sh" />
-        <File filename="C:\PortableGITAndExtensions\PortableGIT\bin\winscp" />
         <File filename="C:\PortableGITAndExtensions\PortableGIT\share\netInstall\setup-msysgit.sh" />
         <File filename="C:\PortableGITAndExtensions\PortableGIT\share\netInstall\release.sh" />
         <File filename="C:\PortableGITAndExtensions\PortableGIT\share\netInstall\ming.sh" />
         <File filename="C:\PortableGITAndExtensions\PortableGIT\share\netInstall\gitconfig" />
         <File filename="C:\PortableGITAndExtensions\PortableGIT\share\netInstall\fileList.txt" />
         <File filename="C:\PortableGITAndExtensions\PortableGIT\share\netInstall\fileList-mingw.txt" />
+        <File filename="D:\My Documents\Git\PortableGit\home\gitkeep" />
+        <File filename="D:\My Documents\Git\PortableGit\home\.ssh\known_hosts" />
+        <File filename="D:\My Documents\Git\PortableGit\home\.ssh\id_rsa.pub" />
+        <File filename="D:\My Documents\Git\PortableGit\home\.ssh\id_rsa" />
+        <File filename="D:\My Documents\Git\PortableGit\home\.ssh\git.ppk" />
+        <File filename="D:\My Documents\Git\PortableGit\home\.ssh\environment" />
+        <File filename="D:\My Documents\Git\PortableGit\home\.lesshst" />
+        <File filename="D:\My Documents\Git\PortableGit\home\.gitk" />
+        <File filename="D:\My Documents\Git\PortableGit\home\.bash_history" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
