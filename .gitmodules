@@ -1,3 +1,6 @@
 [submodule "share/GitExtensions"]
 	path = share/GitExtensions
 	url =git://github.com/vbjay/Git-Extensions.git
+[submodule "GitExtensionsSrc"]
+	path = share/src/GitExtensions
+	url = git@github.com:vbjay/gitextensions.git

@@ -49,8 +49,10 @@ do
 		"$INSTALL_PATH/installer-tmp/bin/git-$builtin.exe"
 done
 
-git clone git://github.com/vbjay/Portable-Git.git PortableGit --recursive && 
-cd ./PortableGit/share/GitExtensions/ &&
+git clone git://github.com/vbjay/Portable-Git.git PortableGit &&
+cd ./PortableGit/ &&
+git submodule GitExtensions update --init share/GitExtensions && 
+cd share/GitExtensions/ &&
 git checkout master
 echo
 echo "Copy any needed files to the home directory "
