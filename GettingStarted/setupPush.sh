@@ -8,3 +8,9 @@ git remote set-url --push origin git@github.com:vbjay/Portable-Git.git
 cd /share/GitExtensions/
 echo "Configuring Git Extensions repo push url with ssh url."
 git remote set-url --push origin git@github.com:vbjay/Git-Extensions.git
+
+if [ -e "/share/src/GitExtensions/.git" ]; then
+	cd /share/src/GitExtensions/
+	git remote set-url --push origin git@github.com:vbjay/gitextensions.git
+
+fi
