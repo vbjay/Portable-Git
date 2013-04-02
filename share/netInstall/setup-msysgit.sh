@@ -51,7 +51,7 @@ done
 
 git clone git://github.com/vbjay/Portable-Git.git PortableGit &&
 cd ./PortableGit/ &&
-git submodule GitExtensions update --init share/GitExtensions && 
+git submodule update --init share/GitExtensions && 
 cd share/GitExtensions/ &&
 git checkout master
 echo
