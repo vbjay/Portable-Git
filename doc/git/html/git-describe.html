@@ -878,8 +878,9 @@ see the -a and -s options to <a href="git-tag.html">git-tag(1)</a>.</p></div>
 </dt>
 <dd>
 <p>
-        Only consider tags matching the given pattern (can be used to avoid
-        leaking private tags made from the repository).
+        Only consider tags matching the given <code>glob(7)</code> pattern,
+        excluding the "refs/tags/" prefix.  This can be used to avoid
+        leaking private tags from the repository.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -941,7 +942,7 @@ tags/v1.0.0</code></pre>
 </div></div>
 <div class="paragraph"><p>Note that the suffix you get if you type these commands today may be
 longer than what Linus saw above when he ran these commands, as your
-git repository may have new commits whose object names begin with
+Git repository may have new commits whose object names begin with
 975b that did not exist back then, and "-g975b" suffix alone may not
 be sufficient to disambiguate these commits.</p></div>
 </div>
@@ -957,7 +958,7 @@ is found, its name will be output and searching will stop.</p></div>
 <div class="paragraph"><p>If an exact match was not found, <em>git describe</em> will walk back
 through the commit history to locate an ancestor commit which
 has been tagged.  The ancestor&#8217;s tag will be output along with an
-abbreviation of the input committish&#8217;s SHA1.</p></div>
+abbreviation of the input committish&#8217;s SHA-1.</p></div>
 <div class="paragraph"><p>If multiple tags were found during the walk then the tag which
 has the fewest commits different from the input committish will be
 selected and output.  Here fewest commits different is defined as
@@ -975,7 +976,7 @@ will be the smallest number of commits possible.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-08-22 12:54:47 PDT
+Last updated 2013-04-21 19:25:38 PDT
 </div>
 </div>
 </body>

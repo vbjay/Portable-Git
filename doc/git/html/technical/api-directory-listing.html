@@ -745,8 +745,10 @@ directory into account.</p></div>
 <h2 id="_data_structure">Data structure</h2>
 <div class="sectionbody">
 <div class="paragraph"><p><code>struct dir_struct</code> structure is used to pass directory traversal
-options to the library and to record the paths discovered.  The notable
-options are:</p></div>
+options to the library and to record the paths discovered.  A single
+<code>struct dir_struct</code> is used regardless of whether or not the traversal
+recursively descends into subdirectories.</p></div>
+<div class="paragraph"><p>The notable options are:</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
 <code>exclude_per_dir</code>
@@ -758,24 +760,43 @@ options are:</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
-<code>collect_ignored</code>
+<code>flags</code>
 </dt>
 <dd>
 <p>
-        Include paths that are to be excluded in the result.
+        A bit-field of options (the <code>*IGNORED*</code> flags are mutually exclusive):
 </p>
-</dd>
+<div class="dlist"><dl>
 <dt class="hdlist1">
-<code>show_ignored</code>
+<code>DIR_SHOW_IGNORED</code>
 </dt>
 <dd>
 <p>
-        The traversal is for finding just ignored files, not unignored
-        files.
+        Return just ignored files in <code>entries[]</code>, not untracked files.
 </p>
 </dd>
 <dt class="hdlist1">
-<code>show_other_directories</code>
+<code>DIR_SHOW_IGNORED_TOO</code>
+</dt>
+<dd>
+<p>
+        Similar to <code>DIR_SHOW_IGNORED</code>, but return ignored files in <code>ignored[]</code>
+        in addition to untracked files in <code>entries[]</code>.
+</p>
+</dd>
+<dt class="hdlist1">
+<code>DIR_COLLECT_IGNORED</code>
+</dt>
+<dd>
+<p>
+        Special mode for git-add. Return ignored files in <code>ignored[]</code> and
+        untracked files in <code>entries[]</code>. Only returns ignored files that match
+        pathspec exactly (no wildcards). Does not recurse into ignored
+        directories.
+</p>
+</dd>
+<dt class="hdlist1">
+<code>DIR_SHOW_OTHER_DIRECTORIES</code>
 </dt>
 <dd>
 <p>
@@ -783,7 +804,7 @@ options are:</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
-<code>hide_empty_directories</code>
+<code>DIR_HIDE_EMPTY_DIRECTORIES</code>
 </dt>
 <dd>
 <p>
@@ -791,17 +812,19 @@ options are:</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
-<code>no_gitlinks</code>
+<code>DIR_NO_GITLINKS</code>
 </dt>
 <dd>
 <p>
-        If set, recurse into a directory that looks like a git
+        If set, recurse into a directory that looks like a Git
         directory.  Otherwise it is shown as a directory.
 </p>
 </dd>
-<dt class="hdlist1">
-The result of the enumeration is left in these fields
-</dt>
+</dl></div>
+</dd>
+</dl></div>
+<div class="paragraph"><p>The result of the enumeration is left in these fields:</p></div>
+<div class="dlist"><dl>
 <dt class="hdlist1">
 <code>entries[]</code>
 </dt>
@@ -827,6 +850,23 @@ The result of the enumeration is left in these fields
         Internal use; keeps track of allocation of <code>entries[]</code> array.
 </p>
 </dd>
+<dt class="hdlist1">
+<code>ignored[]</code>
+</dt>
+<dd>
+<p>
+        An array of <code>struct dir_entry</code>, used for ignored paths with the
+        <code>DIR_SHOW_IGNORED_TOO</code> and <code>DIR_COLLECT_IGNORED</code> flags.
+</p>
+</dd>
+<dt class="hdlist1">
+<code>ignored_nr</code>
+</dt>
+<dd>
+<p>
+        The number of members in <code>ignored[]</code> array.
+</p>
+</dd>
 </dl></div>
 </div>
 </div>
@@ -844,11 +884,16 @@ Prepare <code>struct dir_struct dir</code> and clear it with <code>memset(&amp;d
 </li>
 <li>
 <p>
-Call <code>add_exclude()</code> to add single exclude pattern,
-  <code>add_excludes_from_file()</code> to add patterns from a file
-  (e.g. <code>.git/info/exclude</code>), and/or set <code>dir.exclude_per_dir</code>.  A
-  short-hand function <code>setup_standard_excludes()</code> can be used to set up
-  the standard set of exclude settings.
+To add single exclude pattern, call <code>add_exclude_list()</code> and then
+  <code>add_exclude()</code>.
+</p>
+</li>
+<li>
+<p>
+To add patterns from a file (e.g. <code>.git/info/exclude</code>), call
+  <code>add_excludes_from_file()</code> , and/or set <code>dir.exclude_per_dir</code>.  A
+  short-hand function <code>setup_standard_excludes()</code> can be used to set
+  up the standard set of exclude settings.
 </p>
 </li>
 <li>
@@ -866,6 +911,11 @@ Call <code>read_directory()</code>.
 Use <code>dir.entries[]</code>.
 </p>
 </li>
+<li>
+<p>
+Call <code>clear_directory()</code> when none of the contained elements are no longer in use.
+</p>
+</li>
 </ul></div>
 <div class="paragraph"><p>(JC)</p></div>
 </div>
@@ -874,7 +924,7 @@ Use <code>dir.entries[]</code>.
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2011-11-15 13:45:02 PST
+Last updated 2013-04-23 12:18:47 PDT
 </div>
 </div>
 </body>

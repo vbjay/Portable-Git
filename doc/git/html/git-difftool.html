@@ -754,7 +754,7 @@ git-difftool(1) Manual Page
 <div class="sect1">
 <h2 id="_description">DESCRIPTION</h2>
 <div class="sectionbody">
-<div class="paragraph"><p><em>git difftool</em> is a git command that allows you to compare and edit files
+<div class="paragraph"><p><em>git difftool</em> is a Git command that allows you to compare and edit files
 between revisions using common diff tools.  <em>git difftool</em> is a frontend
 to <em>git diff</em> and accepts the same options and arguments. See
 <a href="git-diff.html">git-diff(1)</a>.</p></div>
@@ -842,21 +842,17 @@ with custom merge tool commands and has the same value as <code>$MERGED</code>.<
 </p>
 </dd>
 <dt class="hdlist1">
---symlinks
-</dt>
-<dt class="hdlist1">
---no-symlinks
+--[no-]symlinks
 </dt>
 <dd>
 <p>
         <em>git difftool</em>'s default behavior is create symlinks to the
-        working tree when run in <code>--dir-diff</code> mode.
+        working tree when run in <code>--dir-diff</code> mode and the right-hand
+        side of the comparison yields the same content as the file in
+        the working tree.
 </p>
-<div class="literalblock">
-<div class="content">
-<pre><code>Specifying `--no-symlinks` instructs 'git difftool' to create
-copies instead.  `--no-symlinks` is the default on Windows.</code></pre>
-</div></div>
+<div class="paragraph"><p>Specifying <code>--no-symlinks</code> instructs <em>git difftool</em> to create copies
+instead.  <code>--no-symlinks</code> is the default on Windows.</p></div>
 </dd>
 <dt class="hdlist1">
 -x &lt;command&gt;
@@ -981,7 +977,7 @@ difftool.prompt
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-08-27 14:06:30 PDT
+Last updated 2013-05-17 16:33:07 PDT
 </div>
 </div>
 </body>

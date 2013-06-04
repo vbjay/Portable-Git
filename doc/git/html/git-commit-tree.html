@@ -747,7 +747,8 @@ git-commit-tree(1) Manual Page
 <div class="sectionbody">
 <div class="verseblock">
 <pre class="content"><em>git commit-tree</em> &lt;tree&gt; [(-p &lt;parent&gt;)&#8230;] &lt; changelog
-<em>git commit-tree</em> [(-p &lt;parent&gt;)&#8230;] [(-m &lt;message&gt;)&#8230;] [(-F &lt;file&gt;)&#8230;] &lt;tree&gt;</pre>
+<em>git commit-tree</em> [(-p &lt;parent&gt;)&#8230;] [-S[&lt;keyid&gt;]] [(-m &lt;message&gt;)&#8230;]
+                  [(-F &lt;file&gt;)&#8230;] &lt;tree&gt;</pre>
 <div class="attribution">
 </div></div>
 </div>
@@ -767,7 +768,7 @@ commits have no parents.</p></div>
 <div class="paragraph"><p>While a tree represents a particular directory state of a working
 directory, a commit represents that state in "time", and explains how
 to get there.</p></div>
-<div class="paragraph"><p>Normally a commit would identify a new "HEAD" state, and while git
+<div class="paragraph"><p>Normally a commit would identify a new "HEAD" state, and while Git
 doesn&#8217;t care where you save the note about that state, in practice we
 tend to just write the result to the file that is pointed at by
 <code>.git/HEAD</code>, so that we can always see what the last committed
@@ -812,6 +813,14 @@ state was.</p></div>
         from the standard input.
 </p>
 </dd>
+<dt class="hdlist1">
+-S[&lt;keyid&gt;]
+</dt>
+<dd>
+<p>
+        GPG-sign commit.
+</p>
+</dd>
 </dl></div>
 </div>
 </div>
@@ -846,13 +855,13 @@ GIT_AUTHOR_EMAIL
 GIT_AUTHOR_DATE
 GIT_COMMITTER_NAME
 GIT_COMMITTER_EMAIL
-GIT_COMMITTER_DATE
-EMAIL</code></pre>
+GIT_COMMITTER_DATE</code></pre>
 </div></div>
 <div class="paragraph"><p>(nb "&lt;", "&gt;" and "\n"s are stripped)</p></div>
 <div class="paragraph"><p>In case (some of) these environment variables are not set, the information
 is taken from the configuration items user.name and user.email, or, if not
-present, system user name and the hostname used for outgoing mail (taken
+present, the environment variable EMAIL, or, if that is not set,
+system user name and the hostname used for outgoing mail (taken
 from <code>/etc/mailname</code> and falling back to the fully qualified hostname when
 that file does not exist).</p></div>
 <div class="paragraph"><p>A commit comment is read from stdin. If a changelog
@@ -911,14 +920,14 @@ ISO 8601
 <div class="sect1">
 <h2 id="_discussion">Discussion</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>At the core level, git is character encoding agnostic.</p></div>
+<div class="paragraph"><p>At the core level, Git is character encoding agnostic.</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
 The pathnames recorded in the index and in the tree objects
    are treated as uninterpreted sequences of non-NUL bytes.
    What readdir(2) returns are what are recorded and compared
-   with the data git keeps track of, which in turn are expected
+   with the data Git keeps track of, which in turn are expected
    to be what lstat(2) and creat(2) accepts.  There is no such
    thing as pathname encoding translation.
 </p>
@@ -938,9 +947,9 @@ The commit log messages are uninterpreted sequences of non-NUL
 </li>
 </ul></div>
 <div class="paragraph"><p>Although we encourage that the commit log messages are encoded
-in UTF-8, both the core and git Porcelain are designed not to
+in UTF-8, both the core and Git Porcelain are designed not to
 force UTF-8 on projects.  If all participants of a particular
-project find it more convenient to use legacy encodings, git
+project find it more convenient to use legacy encodings, Git
 does not forbid it.  However, there are a few things to keep in
 mind.</p></div>
 <div class="olist arabic"><ol class="arabic">
@@ -1007,7 +1016,7 @@ reversible operation.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-07-23 21:34:17 PDT
+Last updated 2013-04-02 15:41:33 PDT
 </div>
 </div>
 </body>

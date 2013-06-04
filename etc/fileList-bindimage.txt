@@ -27,6 +27,10 @@ bin/git-upload-archive.exe
 bin/git-upload-pack.exe
 bin/git.exe
 bin/gpg.exe
+bin/gpgkeys_curl.exe
+bin/gpgkeys_finger.exe
+bin/gpgkeys_hkp.exe
+bin/gpgkeys_ldap.exe
 bin/gpgsplit.exe
 bin/gpgv.exe
 bin/grep.exe
@@ -40,7 +44,7 @@ bin/libW11.dll
 bin/libapr-0-0.dll
 bin/libaprutil-0-0.dll
 bin/libcrypto.dll
-bin/libcurl-4.dll
+bin/libcurl.dll
 bin/libexpat-0.dll
 bin/libgsasl-7.dll
 bin/libiconv-2.dll
@@ -127,6 +131,7 @@ libexec/git-core/git-branch.exe
 libexec/git-core/git-bundle.exe
 libexec/git-core/git-cat-file.exe
 libexec/git-core/git-check-attr.exe
+libexec/git-core/git-check-ignore.exe
 libexec/git-core/git-check-ref-format.exe
 libexec/git-core/git-checkout-index.exe
 libexec/git-core/git-checkout.exe
@@ -241,7 +246,3 @@ libexec/git-core/git-verify-tag.exe
 libexec/git-core/git-whatchanged.exe
 libexec/git-core/git-write-tree.exe
 libexec/git-core/git.exe
-libexec/gnupg/gpgkeys_curl.exe
-libexec/gnupg/gpgkeys_finger.exe
-libexec/gnupg/gpgkeys_hkp.exe
-libexec/gnupg/gpgkeys_ldap.exe

@@ -746,7 +746,7 @@ git-push(1) Manual Page
 <h2 id="_synopsis">SYNOPSIS</h2>
 <div class="sectionbody">
 <div class="verseblock">
-<pre class="content"><em>git push</em> [--all | --mirror | --tags] [-n | --dry-run] [--receive-pack=&lt;git-receive-pack&gt;]
+<pre class="content"><em>git push</em> [--all | --mirror | --tags] [--follow-tags] [-n | --dry-run] [--receive-pack=&lt;git-receive-pack&gt;]
            [--repo=&lt;repository&gt;] [-f | --force] [--prune] [-v | --verbose] [-u | --set-upstream]
            [&lt;repository&gt; [&lt;refspec&gt;&#8230;]]</pre>
 <div class="attribution">
@@ -761,6 +761,15 @@ necessary to complete the given refs.</p></div>
 <div class="paragraph"><p>You can make interesting things happen to a repository
 every time you push into it, by setting up <em>hooks</em> there.  See
 documentation for <a href="git-receive-pack.html">git-receive-pack(1)</a>.</p></div>
+<div class="paragraph"><p>When the command line does not specify where to push with the
+<code>&lt;repository&gt;</code> argument, <code>branch.*.remote</code> configuration for the
+current branch is consulted to determine where to push.  If the
+configuration is missing, it defaults to <em>origin</em>.</p></div>
+<div class="paragraph"><p>When the command line does not specify what to push with <code>&lt;refspec&gt;...</code>
+arguments or <code>--all</code>, <code>--mirror</code>, <code>--tags</code> options, the command finds
+the default <code>&lt;refspec&gt;</code> by consulting <code>remote.*.push</code> configuration,
+and if it is not found, honors <code>push.default</code> configuration to decide
+what to push (See gitlink:git-config[1] for the meaning of <code>push.default</code>).</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -783,13 +792,10 @@ documentation for <a href="git-receive-pack.html">git-receive-pack(1)</a>.</p></
 </dt>
 <dd>
 <p>
+        Specify what destination ref to update with what source object.
         The format of a &lt;refspec&gt; parameter is an optional plus
-        <code>+</code>, followed by the source ref &lt;src&gt;, followed
+        <code>+</code>, followed by the source object &lt;src&gt;, followed
         by a colon <code>:</code>, followed by the destination ref &lt;dst&gt;.
-        It is used to specify with what &lt;src&gt; object the &lt;dst&gt; ref
-        in the remote repository is to be updated.  If not specified,
-        the behavior of the command is controlled by the <code>push.default</code>
-        configuration variable.
 </p>
 <div class="paragraph"><p>The &lt;src&gt; is often the name of the branch you would want to push, but
 it can be any arbitrary "SHA-1 expression", such as <code>master~4</code> or
@@ -799,21 +805,19 @@ push. Arbitrary expressions cannot be used here, an actual ref must
 be named. If <code>:</code>&lt;dst&gt; is omitted, the same ref as &lt;src&gt; will be
 updated.</p></div>
 <div class="paragraph"><p>The object referenced by &lt;src&gt; is used to update the &lt;dst&gt; reference
-on the remote side, but by default this is only allowed if the
-update can fast-forward &lt;dst&gt;.  By having the optional leading <code>+</code>,
-you can tell git to update the &lt;dst&gt; ref even when the update is not a
-fast-forward.  This does <strong>not</strong> attempt to merge &lt;src&gt; into &lt;dst&gt;.  See
+on the remote side.  By default this is only allowed if &lt;dst&gt; is not
+a tag (annotated or lightweight), and then only if it can fast-forward
+&lt;dst&gt;.  By having the optional leading <code>+</code>, you can tell Git to update
+the &lt;dst&gt; ref even if it is not allowed by default (e.g., it is not a
+fast-forward.)  This does <strong>not</strong> attempt to merge &lt;src&gt; into &lt;dst&gt;.  See
 EXAMPLES below for details.</p></div>
 <div class="paragraph"><p><code>tag &lt;tag&gt;</code> means the same as <code>refs/tags/&lt;tag&gt;:refs/tags/&lt;tag&gt;</code>.</p></div>
 <div class="paragraph"><p>Pushing an empty &lt;src&gt; allows you to delete the &lt;dst&gt; ref from
 the remote repository.</p></div>
 <div class="paragraph"><p>The special refspec <code>:</code> (or <code>+:</code> to allow non-fast-forward updates)
-directs git to push "matching" branches: for every branch that exists on
+directs Git to push "matching" branches: for every branch that exists on
 the local side, the remote side is updated if a branch of the same name
-already exists on the remote side.  This is the default operation mode
-if no explicit refspec is found (that is neither on the command line
-nor in any Push line of the corresponding remotes file---see below) and
-no <code>push.default</code> configuration variable is set.</p></div>
+already exists on the remote side.</p></div>
 </dd>
 <dt class="hdlist1">
 --all
@@ -894,6 +898,17 @@ no <code>push.default</code> configuration variable is set.</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
+--follow-tags
+</dt>
+<dd>
+<p>
+        Push all the refs that would be pushed without this option,
+        and also push annotated tags in <code>refs/tags</code> that are missing
+        from the remote but are pointing at committish that are
+        reachable from the refs being pushed.
+</p>
+</dd>
+<dt class="hdlist1">
 --receive-pack=&lt;git-receive-pack&gt;
 </dt>
 <dt class="hdlist1">
@@ -958,10 +973,7 @@ useful if you write an alias or script around <em>git push</em>.</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
---thin
-</dt>
-<dt class="hdlist1">
---no-thin
+--[no-]thin
 </dt>
 <dd>
 <p>
@@ -1013,7 +1025,7 @@ useful if you write an alias or script around <em>git push</em>.</p></div>
 <p>
         Make sure all submodule commits used by the revisions to be
         pushed are available on a remote-tracking branch. If <em>check</em> is
-        used git will verify that all submodule commits that changed in
+        used Git will verify that all submodule commits that changed in
         the revisions to be pushed are available on at least one remote
         of the submodule. If any commits are missing the push will be
         aborted and exit with non-zero status. If <em>on-demand</em> is used
@@ -1090,7 +1102,7 @@ git://host.xz&#91;:port&#93;/~&#91;user&#93;/path/to/repo.git/
 </p>
 </li>
 </ul></div>
-<div class="paragraph"><p>For local repositories, also supported by git natively, the following
+<div class="paragraph"><p>For local repositories, also supported by Git natively, the following
 syntaxes may be used:</p></div>
 <div class="ulist"><ul>
 <li>
@@ -1107,7 +1119,7 @@ syntaxes may be used:</p></div>
 <div class="paragraph"><p>These two syntaxes are mostly equivalent, except when cloning, when
 the former implies --local option. See <a href="git-clone.html">git-clone(1)</a> for
 details.</p></div>
-<div class="paragraph"><p>When git doesn&#8217;t know how to handle a certain transport protocol, it
+<div class="paragraph"><p>When Git doesn&#8217;t know how to handle a certain transport protocol, it
 attempts to use the <em>remote-&lt;transport&gt;</em> remote helper, if one
 exists. To explicitly request a remote helper, the following syntax
 may be used:</p></div>
@@ -1120,7 +1132,7 @@ may be used:</p></div>
 </ul></div>
 <div class="paragraph"><p>where &lt;address&gt; may be a path, a server and path, or an arbitrary
 URL-like string recognized by the specific remote helper being
-invoked. See <a href="git-remote-helpers.html">git-remote-helpers(1)</a> for details.</p></div>
+invoked. See <a href="gitremote-helpers.html">gitremote-helpers(1)</a> for details.</p></div>
 <div class="paragraph"><p>If there are a large number of similarly-named remote repositories and
 you want to use a different format for them (such that the URLs you
 use will be rewritten into URLs that work), you can create a
@@ -1165,7 +1177,7 @@ of a URL as <code>&lt;repository&gt;</code> argument:</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
-a remote in the git configuration file: <code>$GIT_DIR/config</code>,
+a remote in the Git configuration file: <code>$GIT_DIR/config</code>,
 </p>
 </li>
 <li>
@@ -1252,7 +1264,7 @@ refspecs, if you don&#8217;t provide one on the command line.
 <h2 id="_output">OUTPUT</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>The output of "git push" depends on the transport method used; this
-section describes the output when pushing over the git protocol (either
+section describes the output when pushing over the Git protocol (either
 locally or via ssh).</p></div>
 <div class="paragraph"><p>The status of the push is output in tabular form, with each line
 representing the status of a single ref. Each line is of the form:</p></div>
@@ -1630,7 +1642,7 @@ a <code>git gc</code> command on the origin repository.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-11-29 14:50:58 PST
+Last updated 2013-05-17 16:33:07 PDT
 </div>
 </div>
 </body>

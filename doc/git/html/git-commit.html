@@ -750,7 +750,7 @@ git-commit(1) Manual Page
            [--dry-run] [(-c | -C | --fixup | --squash) &lt;commit&gt;]
            [-F &lt;file&gt; | -m &lt;msg&gt;] [--reset-author] [--allow-empty]
            [--allow-empty-message] [--no-verify] [-e] [--author=&lt;author&gt;]
-           [--date=&lt;date&gt;] [--cleanup=&lt;mode&gt;] [--status | --no-status]
+           [--date=&lt;date&gt;] [--cleanup=&lt;mode&gt;] [--[no-]status]
            [-i | -o] [-S[&lt;keyid&gt;]] [--] [&lt;file&gt;&#8230;]</pre>
 <div class="attribution">
 </div></div>
@@ -781,7 +781,7 @@ by using <em>git rm</em> to remove files from the working tree
 by listing files as arguments to the <em>commit</em> command, in which
    case the commit will ignore changes staged in the index, and instead
    record the current content of the listed files (which must already
-   be known to git);
+   be known to Git);
 </p>
 </li>
 <li>
@@ -823,7 +823,7 @@ that, you can recover from it with <em>git reset</em>.</p></div>
 <p>
         Tell the command to automatically stage files that have
         been modified and deleted, but new files you have not
-        told git about are not affected.
+        told Git about are not affected.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -988,6 +988,8 @@ that, you can recover from it with <em>git reset</em>.</p></div>
 <dd>
 <p>
         Use the given &lt;msg&gt; as the commit message.
+        If multiple <code>-m</code> options are given, their values are
+        concatenated as separate paragraphs.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1059,15 +1061,51 @@ that, you can recover from it with <em>git reset</em>.</p></div>
 </dt>
 <dd>
 <p>
-        This option sets how the commit message is cleaned up.
-        The  <em>&lt;mode&gt;</em> can be one of <em>verbatim</em>, <em>whitespace</em>, <em>strip</em>,
-        and <em>default</em>. The <em>default</em> mode will strip leading and
-        trailing empty lines and #commentary from the commit message
-        only if the message is to be edited. Otherwise only whitespace
-        removed. The <em>verbatim</em> mode does not change message at all,
-        <em>whitespace</em> removes just leading/trailing whitespace lines
-        and <em>strip</em> removes both whitespace and commentary.
+        This option determines how the supplied commit message should be
+        cleaned up before committing.  The <em>&lt;mode&gt;</em> can be <code>strip</code>,
+        <code>whitespace</code>, <code>verbatim</code>, or <code>default</code>.
 </p>
+<div class="openblock">
+<div class="content">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+strip
+</dt>
+<dd>
+<p>
+        Strip leading and trailing empty lines, trailing whitespace, and
+        #commentary and collapse consecutive empty lines.
+</p>
+</dd>
+<dt class="hdlist1">
+whitespace
+</dt>
+<dd>
+<p>
+        Same as <code>strip</code> except #commentary is not removed.
+</p>
+</dd>
+<dt class="hdlist1">
+verbatim
+</dt>
+<dd>
+<p>
+        Do not change the message at all.
+</p>
+</dd>
+<dt class="hdlist1">
+default
+</dt>
+<dd>
+<p>
+        Same as <code>strip</code> if the message is to be edited.
+        Otherwise <code>whitespace</code>.
+</p>
+</dd>
+</dl></div>
+</div></div>
+<div class="paragraph"><p>The default can be changed by the <em>commit.cleanup</em> configuration
+variable (see <a href="git-config.html">git-config(1)</a>).</p></div>
 </dd>
 <dt class="hdlist1">
 -e
@@ -1078,8 +1116,8 @@ that, you can recover from it with <em>git reset</em>.</p></div>
 <dd>
 <p>
         The message taken from file with <code>-F</code>, command line with
-        <code>-m</code>, and from file with <code>-C</code> are usually used as the
-        commit log message unmodified.  This option lets you
+        <code>-m</code>, and from commit object with <code>-C</code> are usually used as
+        the commit log message unmodified. This option lets you
         further edit the message taken from these sources.
 </p>
 </dd>
@@ -1098,14 +1136,15 @@ that, you can recover from it with <em>git reset</em>.</p></div>
 </dt>
 <dd>
 <p>
-        Used to amend the tip of the current branch. Prepare the tree
-        object you would want to replace the latest commit as usual
-        (this includes the usual -i/-o and explicit paths), and the
-        commit log editor is seeded with the commit message from the
-        tip of the current branch. The commit you create replaces the
-        current tip&#8201;&#8212;&#8201;if it was a merge, it will have the parents of
-        the current tip as parents&#8201;&#8212;&#8201;so the current top commit is
-        discarded.
+        Replace the tip of the current branch by creating a new
+        commit. The recorded tree is prepared as usual (including
+        the effect of the <code>-i</code> and <code>-o</code> options and explicit
+        pathspec), and the message from the original commit is used
+        as the starting point, instead of an empty message, when no
+        other message is specified from the command line via options
+        such as <code>-m</code>, <code>-F</code>, <code>-c</code>, etc.  The new commit has the same
+        parents and author as the current one (the <code>--reset-author</code>
+        option can countermand this).
 </p>
 <div class="openblock">
 <div class="content">
@@ -1429,17 +1468,17 @@ refuses to run when given pathnames (but see <code>-i</code> option).</p></div>
 with a single short (less than 50 character) line summarizing the
 change, followed by a blank line and then a more thorough description.
 The text up to the first blank line in a commit message is treated
-as the commit title, and that title is used throughout git.
+as the commit title, and that title is used throughout Git.
 For example, <a href="git-format-patch.html">git-format-patch(1)</a> turns a commit into email, and it uses
 the title on the Subject line and the rest of the commit in the body.</p></div>
-<div class="paragraph"><p>At the core level, git is character encoding agnostic.</p></div>
+<div class="paragraph"><p>At the core level, Git is character encoding agnostic.</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
 The pathnames recorded in the index and in the tree objects
    are treated as uninterpreted sequences of non-NUL bytes.
    What readdir(2) returns are what are recorded and compared
-   with the data git keeps track of, which in turn are expected
+   with the data Git keeps track of, which in turn are expected
    to be what lstat(2) and creat(2) accepts.  There is no such
    thing as pathname encoding translation.
 </p>
@@ -1459,9 +1498,9 @@ The commit log messages are uninterpreted sequences of non-NUL
 </li>
 </ul></div>
 <div class="paragraph"><p>Although we encourage that the commit log messages are encoded
-in UTF-8, both the core and git Porcelain are designed not to
+in UTF-8, both the core and Git Porcelain are designed not to
 force UTF-8 on projects.  If all participants of a particular
-project find it more convenient to use legacy encodings, git
+project find it more convenient to use legacy encodings, Git
 does not forbid it.  However, there are a few things to keep in
 mind.</p></div>
 <div class="olist arabic"><ol class="arabic">
@@ -1562,7 +1601,7 @@ information.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-11-15 13:11:54 PST
+Last updated 2013-05-17 16:33:07 PDT
 </div>
 </div>
 </body>

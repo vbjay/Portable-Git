@@ -754,7 +754,7 @@ git-rev-parse(1) Manual Page
 <div class="sect1">
 <h2 id="_description">DESCRIPTION</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>Many git porcelainish commands take mixture of flags
+<div class="paragraph"><p>Many Git porcelainish commands take mixture of flags
 (i.e. parameters that begin with a dash <em>-</em>) and parameters
 meant for the underlying <em>git rev-list</em> command they use internally
 and flags and parameters for the other commands they use
@@ -851,9 +851,18 @@ distinguish between them.</p></div>
 </dt>
 <dd>
 <p>
-        The parameter given must be usable as a single, valid
-        object name.  Otherwise barf and abort.
+        Verify that exactly one parameter is provided, and that it
+        can be turned into a raw 20-byte SHA-1 that can be used to
+        access the object database. If so, emit it to the standard
+        output; otherwise, error out.
 </p>
+<div class="paragraph"><p>If you want to make sure that the output actually names an object in
+your object database and/or can be used as a specific type of object
+For example, <code>git rev-parse "$VAR^{commit}"</code> will make sure <code>$VAR</code>
+names an existing object that is a commit-ish (i.e. a commit, or an
+annotated tag that points at a commit).  To make sure that <code>$VAR</code>
+names an existing object of any type, <code>git rev-parse "$VAR^{object}"</code>
+can be used.</p></div>
 </dd>
 <dt class="hdlist1">
 -q
@@ -897,7 +906,7 @@ distinguish between them.</p></div>
 </dt>
 <dd>
 <p>
-        Usually the object names are output in SHA1 form (with
+        Usually the object names are output in SHA-1 form (with
         possible <em>&#94;</em> prefix); this option makes them output in a
         form as close to the original input as possible.
 </p>
@@ -1013,7 +1022,7 @@ shown.  If the pattern does not contain a globbing character (<code>?</code>,
         relative to the current working directory.
 </p>
 <div class="paragraph"><p>If <code>$GIT_DIR</code> is not defined and the current directory
-is not detected to lie in a git repository or work tree
+is not detected to lie in a Git repository or work tree
 print a message to stderr and exit with nonzero status.</p></div>
 </dd>
 <dt class="hdlist1">
@@ -1061,7 +1070,7 @@ print a message to stderr and exit with nonzero status.</p></div>
 </dt>
 <dd>
 <p>
-        Instead of outputting the full SHA1 values of object names try to
+        Instead of outputting the full SHA-1 values of object names try to
         abbreviate them to a shorter unique name. When no length is specified
         7 is used. The minimum length is 4.
 </p>
@@ -1103,9 +1112,10 @@ print a message to stderr and exit with nonzero status.</p></div>
 </dt>
 <dd>
 <p>
-        Check if &lt;path&gt; is a valid git-dir or a git-file pointing to a valid
-        git-dir. If &lt;path&gt; is a valid git-dir the resolved path to git-dir will
-        be printed.
+        Check if &lt;path&gt; is a valid repository or a gitfile that
+        points at a valid repository, and print the location of the
+        repository.  If &lt;path&gt; is a gitfile then the resolved path
+        to the real repository is printed.
 </p>
 </dd>
 </dl></div>
@@ -1115,7 +1125,7 @@ print a message to stderr and exit with nonzero status.</p></div>
 <h2 id="_specifying_revisions">SPECIFYING REVISIONS</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>A revision parameter <em>&lt;rev&gt;</em> typically, but not necessarily, names a
-commit object.  It uses what is called an <em>extended SHA1</em>
+commit object.  It uses what is called an <em>extended SHA-1</em>
 syntax.  Here are various ways to spell object names.  The
 ones listed near the end of this list name trees and
 blobs contained in a commit.</p></div>
@@ -1125,7 +1135,7 @@ blobs contained in a commit.</p></div>
 </dt>
 <dd>
 <p>
-  The full SHA1 object name (40-byte hexadecimal string), or
+  The full SHA-1 object name (40-byte hexadecimal string), or
   a leading substring that is unique within the repository.
   E.g. dae86e1950b1277e545cee180551750029cfe735 and dae86e both
   name the same commit object if there is no other object in
@@ -1150,7 +1160,7 @@ blobs contained in a commit.</p></div>
   A symbolic ref name.  E.g. <em>master</em> typically means the commit
   object referenced by <em>refs/heads/master</em>.  If you
   happen to have both <em>heads/master</em> and <em>tags/master</em>, you can
-  explicitly say <em>heads/master</em> to tell git which one you mean.
+  explicitly say <em>heads/master</em> to tell Git which one you mean.
   When ambiguous, a <em>&lt;refname&gt;</em> is disambiguated by taking the
   first match in the following rules:
 </p>
@@ -1199,7 +1209,7 @@ when you run <code>git merge</code>.
 when you run <code>git cherry-pick</code>.</p></div>
 <div class="paragraph"><p>Note that any of the <em>refs/*</em> cases above may come either from
 the <em>$GIT_DIR/refs</em> directory or from the <em>$GIT_DIR/packed-refs</em> file.
-While the ref name encoding is unspecified, UTF-8 is prefered as
+While the ref name encoding is unspecified, UTF-8 is preferred as
 some output processing may assume ref names in UTF-8.</p></div>
 </li>
 </ol></div>
@@ -1255,13 +1265,13 @@ some output processing may assume ref names in UTF-8.</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
-<em>&lt;refname&gt;@{upstream}</em>, e.g. <em>master@{upstream}</em>, <em>@{u}</em>
+<em>&lt;branchname&gt;@{upstream}</em>, e.g. <em>master@{upstream}</em>, <em>@{u}</em>
 </dt>
 <dd>
 <p>
-  The suffix <em>@{upstream}</em> to a ref (short form <em>&lt;refname&gt;@{u}</em>) refers to
-  the branch the ref is set to build on top of.  A missing ref defaults
-  to the current branch.
+  The suffix <em>@{upstream}</em> to a branchname (short form <em>&lt;branchname&gt;@{u}</em>)
+  refers to the branch that the branch specified by branchname is set to build on
+  top of.  A missing branchname defaults to the current one.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1302,6 +1312,10 @@ some output processing may assume ref names in UTF-8.</p></div>
   dereferenced anymore (in which case, barf).  <em>&lt;rev&gt;&#94;0</em>
   is a short-hand for <em>&lt;rev&gt;&#94;{commit}</em>.
 </p>
+<div class="paragraph"><p><em>rev&#94;{object}</em> can be used to make sure <em>rev</em> names an
+object that exists, without requiring <em>rev</em> to be a tag, and
+without dereferencing <em>rev</em>; because a tag is already an object,
+it does not have to be dereferenced even once to get to an object.</p></div>
 </dd>
 <dt class="hdlist1">
 <em>&lt;rev&gt;&#94;{}</em>, e.g. <em>v0.99.8&#94;{}</em>
@@ -1461,7 +1475,8 @@ all of its parents.</p></div>
 <dd>
 <p>
         Include commits that are reachable from &lt;rev2&gt; but exclude
-        those that are reachable from &lt;rev1&gt;.
+        those that are reachable from &lt;rev1&gt;.  When either &lt;rev1&gt; or
+        &lt;rev2&gt; is omitted, it defaults to <em>HEAD</em>.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1470,7 +1485,8 @@ all of its parents.</p></div>
 <dd>
 <p>
         Include commits that are reachable from either &lt;rev1&gt; or
-        &lt;rev2&gt; but exclude those that are reachable from both.
+        &lt;rev2&gt; but exclude those that are reachable from both.  When
+        either &lt;rev1&gt; or &lt;rev2&gt; is omitted, it defaults to <em>HEAD</em>.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1653,13 +1669,13 @@ Print the commit object name from the revision in the $REV shell variable:
 </p>
 <div class="listingblock">
 <div class="content">
-<pre><code>$ git rev-parse --verify $REV</code></pre>
+<pre><code>$ git rev-parse --verify $REV^{commit}</code></pre>
 </div></div>
 <div class="paragraph"><p>This will error out if $REV is empty or not a valid revision.</p></div>
 </li>
 <li>
 <p>
-Same as above:
+Similar to above:
 </p>
 <div class="listingblock">
 <div class="content">
@@ -1680,7 +1696,7 @@ Same as above:
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-07-22 14:08:46 PDT
+Last updated 2013-04-21 19:25:38 PDT
 </div>
 </div>
 </body>

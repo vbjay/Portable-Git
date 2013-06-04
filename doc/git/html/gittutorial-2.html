@@ -737,7 +737,7 @@ gittutorial-2(7) Manual Page
 <h2>NAME</h2>
 <div class="sectionbody">
 <p>gittutorial-2 -
-   A tutorial introduction to git: part two
+   A tutorial introduction to Git: part two
 </p>
 </div>
 </div>
@@ -756,13 +756,13 @@ gittutorial-2(7) Manual Page
 <div class="sectionbody">
 <div class="paragraph"><p>You should work through <a href="gittutorial.html">gittutorial(7)</a> before reading this tutorial.</p></div>
 <div class="paragraph"><p>The goal of this tutorial is to introduce two fundamental pieces of
-git&#8217;s architecture&#8212;the object database and the index file&#8212;and to
+Git&#8217;s architecture&#8212;the object database and the index file&#8212;and to
 provide the reader with everything necessary to understand the rest
-of the git documentation.</p></div>
+of the Git documentation.</p></div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_the_git_object_database">The git object database</h2>
+<h2 id="_the_git_object_database">The Git object database</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Let&#8217;s start a new project and create a small amount of history:</p></div>
 <div class="listingblock">
@@ -782,22 +782,22 @@ $ git commit -a -m "add emphasis"
 [master c4d59f3] add emphasis
  1 file changed, 1 insertion(+), 1 deletion(-)</code></pre>
 </div></div>
-<div class="paragraph"><p>What are the 7 digits of hex that git responded to the commit with?</p></div>
+<div class="paragraph"><p>What are the 7 digits of hex that Git responded to the commit with?</p></div>
 <div class="paragraph"><p>We saw in part one of the tutorial that commits have names like this.
-It turns out that every object in the git history is stored under
-a 40-digit hex name.  That name is the SHA1 hash of the object&#8217;s
-contents; among other things, this ensures that git will never store
-the same data twice (since identical data is given an identical SHA1
-name), and that the contents of a git object will never change (since
+It turns out that every object in the Git history is stored under
+a 40-digit hex name.  That name is the SHA-1 hash of the object&#8217;s
+contents; among other things, this ensures that Git will never store
+the same data twice (since identical data is given an identical SHA-1
+name), and that the contents of a Git object will never change (since
 that would change the object&#8217;s name as well). The 7 char hex strings
 here are simply the abbreviation of such 40 character long strings.
 Abbreviations can be used everywhere where the 40 character strings
 can be used, so long as they are unambiguous.</p></div>
 <div class="paragraph"><p>It is expected that the content of the commit object you created while
-following the example above generates a different SHA1 hash than
+following the example above generates a different SHA-1 hash than
 the one shown above because the commit object records the time when
 it was created and the name of the person performing the commit.</p></div>
-<div class="paragraph"><p>We can ask git about this particular object with the <code>cat-file</code>
+<div class="paragraph"><p>We can ask Git about this particular object with the <code>cat-file</code>
 command. Don&#8217;t copy the 40 hex digits from this example but use those
 from your own version. Note that you can shorten it to only a few
 characters to save yourself typing all 40 hex digits:</p></div>
@@ -816,13 +816,13 @@ initial commit</code></pre>
 a file.  In addition, a tree can also refer to other tree objects,
 thus creating a directory hierarchy.  You can examine the contents of
 any tree using ls-tree (remember that a long enough initial portion
-of the SHA1 will also work):</p></div>
+of the SHA-1 will also work):</p></div>
 <div class="listingblock">
 <div class="content">
 <pre><code>$ git ls-tree 92b8b694
 100644 blob 3b18e512dba79e4c8300dd08aeb37f8e728b8dad    file.txt</code></pre>
 </div></div>
-<div class="paragraph"><p>Thus we see that this tree has one file in it.  The SHA1 hash is a
+<div class="paragraph"><p>Thus we see that this tree has one file in it.  The SHA-1 hash is a
 reference to that file&#8217;s data:</p></div>
 <div class="listingblock">
 <div class="content">
@@ -835,10 +835,10 @@ blob</code></pre>
 <pre><code>$ git cat-file blob 3b18e512
 hello world</code></pre>
 </div></div>
-<div class="paragraph"><p>Note that this is the old file data; so the object that git named in
+<div class="paragraph"><p>Note that this is the old file data; so the object that Git named in
 its response to the initial tree was a tree with a snapshot of the
 directory state that was recorded by the first commit.</p></div>
-<div class="paragraph"><p>All of these objects are stored under their SHA1 names inside the git
+<div class="paragraph"><p>All of these objects are stored under their SHA-1 names inside the Git
 directory:</p></div>
 <div class="listingblock">
 <div class="content">
@@ -871,7 +871,7 @@ ref: refs/heads/master</code></pre>
 </div></div>
 <div class="paragraph"><p>As you can see, this tells us which branch we&#8217;re currently on, and it
 tells us this by naming a file under the .git directory, which itself
-contains a SHA1 name referring to a commit object, which we can
+contains a SHA-1 name referring to a commit object, which we can
 examine with cat-file:</p></div>
 <div class="listingblock">
 <div class="content">
@@ -914,7 +914,7 @@ branches.</p></div>
 <div class="paragraph"><p>Besides blobs, trees, and commits, the only remaining type of object
 is a "tag", which we won&#8217;t discuss here; refer to <a href="git-tag.html">git-tag(1)</a>
 for details.</p></div>
-<div class="paragraph"><p>So now we know how git uses the object database to represent a
+<div class="paragraph"><p>So now we know how Git uses the object database to represent a
 project&#8217;s history:</p></div>
 <div class="ulist"><ul>
 <li>
@@ -951,7 +951,7 @@ The name of the current branch is stored in .git/HEAD.
 </ul></div>
 <div class="paragraph"><p>Note, by the way, that lots of commands take a tree as an argument.
 But as we can see above, a tree can be referred to in many different
-ways&#8212;by the SHA1 name for that tree, by the name of a commit that
+ways&#8212;by the SHA-1 name for that tree, by the name of a commit that
 refers to the tree, by the name of a branch whose head refers to that
 tree, etc.--and most such commands can accept any of these names.</p></div>
 <div class="paragraph"><p>In command synopses, the word "tree-ish" is sometimes used to
@@ -1131,17 +1131,17 @@ pages for details.</p></div>
 <div class="sectionbody">
 <div class="paragraph"><p>At this point you should know everything necessary to read the man
 pages for any of the git commands; one good place to start would be
-with the commands mentioned in <a href="everyday.html">Everyday git</a>.  You
+with the commands mentioned in <a href="everyday.html">Everyday Git</a>.  You
 should be able to find any unknown jargon in <a href="gitglossary.html">gitglossary(7)</a>.</p></div>
 <div class="paragraph"><p>The <a href="user-manual.html">Git User&#8217;s Manual</a> provides a more
-comprehensive introduction to git.</p></div>
+comprehensive introduction to Git.</p></div>
 <div class="paragraph"><p><a href="gitcvs-migration.html">gitcvs-migration(7)</a> explains how to
-import a CVS repository into git, and shows how to use git in a
+import a CVS repository into Git, and shows how to use Git in a
 CVS-like way.</p></div>
-<div class="paragraph"><p>For some interesting examples of git use, see the
+<div class="paragraph"><p>For some interesting examples of Git use, see the
 <a href="howto-index.html">howtos</a>.</p></div>
-<div class="paragraph"><p>For git developers, <a href="gitcore-tutorial.html">gitcore-tutorial(7)</a> goes
-into detail on the lower-level git mechanisms involved in, for
+<div class="paragraph"><p>For Git developers, <a href="gitcore-tutorial.html">gitcore-tutorial(7)</a> goes
+into detail on the lower-level Git mechanisms involved in, for
 example, creating a new commit.</p></div>
 </div>
 </div>
@@ -1153,7 +1153,7 @@ example, creating a new commit.</p></div>
 <a href="gitcore-tutorial.html">gitcore-tutorial(7)</a>,
 <a href="gitglossary.html">gitglossary(7)</a>,
 <a href="git-help.html">git-help(1)</a>,
-<a href="everyday.html">Everyday git</a>,
+<a href="everyday.html">Everyday Git</a>,
 <a href="user-manual.html">The Git User&#8217;s Manual</a></p></div>
 </div>
 </div>
@@ -1167,7 +1167,7 @@ example, creating a new commit.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-02-13 00:08:46 PST
+Last updated 2013-04-21 19:25:38 PDT
 </div>
 </div>
 </body>

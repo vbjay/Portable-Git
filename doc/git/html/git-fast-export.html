@@ -775,7 +775,7 @@ into <em>git fast-import</em>.</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
---signed-tags=(verbatim|warn|strip|abort)
+--signed-tags=(verbatim|warn|warn-strip|strip|abort)
 </dt>
 <dd>
 <p>
@@ -784,9 +784,11 @@ into <em>git fast-import</em>.</p></div>
         when excluding revisions) the signatures will not match.
 </p>
 <div class="paragraph"><p>When asking to <em>abort</em> (which is the default), this program will die
-when encountering a signed tag.  With <em>strip</em>, the tags will be made
-unsigned, with <em>verbatim</em>, they will be silently exported
-and with <em>warn</em>, they will be exported, but you will see a warning.</p></div>
+when encountering a signed tag.  With <em>strip</em>, the tags will silently
+be made unsigned, with <em>warn-strip</em> they will be made unsigned but a
+warning will be displayed, with <em>verbatim</em>, they will be silently
+exported and with <em>warn</em>, they will be exported, but you will see a
+warning.</p></div>
 </dd>
 <dt class="hdlist1">
 --tag-of-filtered-object=(abort|drop|rewrite)
@@ -831,6 +833,8 @@ produced incorrect results if you gave these options.</p></div>
         incremental runs.  As &lt;file&gt; is only opened and truncated
         at completion, the same path can also be safely given to
         --import-marks.
+        The file will not be written if no new object has been
+        marked/exported.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -896,11 +900,11 @@ marks the same across runs.</p></div>
 </dt>
 <dd>
 <p>
-       A list of arguments, acceptable to <em>git rev-parse</em> and
-       <em>git rev-list</em>, that specifies the specific objects and references
-       to export.  For example, <code>master~10..master</code> causes the
-       current master reference to be exported along with all objects
-       added since its 10th ancestor commit.
+        A list of arguments, acceptable to <em>git rev-parse</em> and
+        <em>git rev-list</em>, that specifies the specific objects and references
+        to export.  For example, <code>master~10..master</code> causes the
+        current master reference to be exported along with all objects
+        added since its 10th ancestor commit.
 </p>
 </dd>
 </dl></div>
@@ -947,7 +951,7 @@ a tag referencing a tree instead of a commit.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-05-02 15:00:44 PDT
+Last updated 2013-05-17 16:33:07 PDT
 </div>
 </div>
 </body>

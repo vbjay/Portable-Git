@@ -746,7 +746,7 @@ git-log(1) Manual Page
 <h2 id="_synopsis">SYNOPSIS</h2>
 <div class="sectionbody">
 <div class="verseblock">
-<pre class="content"><em>git log</em> [&lt;options&gt;] [&lt;since&gt;..&lt;until&gt;] [[--] &lt;path&gt;&#8230;]</pre>
+<pre class="content"><em>git log</em> [&lt;options&gt;] [&lt;revision range&gt;] [[--] &lt;path&gt;&#8230;]</pre>
 <div class="attribution">
 </div></div>
 </div>
@@ -765,18 +765,6 @@ each commit introduces are shown.</p></div>
 <h2 id="_options">OPTIONS</h2>
 <div class="sectionbody">
 <div class="dlist"><dl>
-<dt class="hdlist1">
-&lt;since&gt;..&lt;until&gt;
-</dt>
-<dd>
-<p>
-        Show only commits between the named two commits.  When
-        either &lt;since&gt; or &lt;until&gt; is omitted, it defaults to
-        <code>HEAD</code>, i.e. the tip of the current branch.
-        For a more complete list of ways to spell &lt;since&gt;
-        and &lt;until&gt;, see <a href="gitrevisions.html">gitrevisions(7)</a>.
-</p>
-</dd>
 <dt class="hdlist1">
 --follow
 </dt>
@@ -811,6 +799,16 @@ each commit introduces are shown.</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
+--use-mailmap
+</dt>
+<dd>
+<p>
+        Use mailmap file to map author and committer names and email
+        to canonical real names and email addresses. See
+        <a href="git-shortlog.html">git-shortlog(1)</a>.
+</p>
+</dd>
+<dt class="hdlist1">
 --full-diff
 </dt>
 <dd>
@@ -830,10 +828,24 @@ produced by --stat etc.</p></div>
 <dd>
 <p>
         Before the log message print out its size in bytes. Intended
-        mainly for porcelain tools consumption. If git is unable to
+        mainly for porcelain tools consumption. If Git is unable to
         produce a valid value size is set to zero.
         Note that only message is considered, if also a diff is shown
         its size is not included.
+</p>
+</dd>
+<dt class="hdlist1">
+&lt;revision range&gt;
+</dt>
+<dd>
+<p>
+        Show only commits in the specified revision range.  When no
+        &lt;revision range&gt; is specified, it defaults to <code>HEAD</code> (i.e. the
+        whole history leading to the current commit).  <code>origin..HEAD</code>
+        specifies all the commits reachable from the current commit
+        (i.e. <code>HEAD</code>), but not from <code>origin</code>. For a complete list of
+        ways to spell &lt;revision range&gt;, see the "Specifying Ranges"
+        section of <a href="gitrevisions.html">gitrevisions(7)</a>.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -846,8 +858,8 @@ produced by --stat etc.</p></div>
         Simplification" below for details and other simplification
         modes.
 </p>
-<div class="paragraph"><p>To prevent confusion with options and branch names, paths may need to
-be prefixed with "-- " to separate them from options or refnames.</p></div>
+<div class="paragraph"><p>Paths may need to be prefixed with "-- " to separate them from
+options or the revision range, when confusion arises.</p></div>
 </dd>
 </dl></div>
 <div class="sect2">
@@ -1676,7 +1688,7 @@ together.</p></div>
 </div>
 <div class="sect2">
 <h3 id="_object_traversal">Object Traversal</h3>
-<div class="paragraph"><p>These options are mostly targeted for packing of git repositories.</p></div>
+<div class="paragraph"><p>These options are mostly targeted for packing of Git repositories.</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
 --objects
@@ -1876,7 +1888,7 @@ e.g. "2 hours ago".</p></div>
 <div class="paragraph"><p><code>--date=rfc</code> (or <code>--date=rfc2822</code>) shows timestamps in RFC 2822
 format, often found in E-mail messages.</p></div>
 <div class="paragraph"><p><code>--date=short</code> shows only date but not time, in <code>YYYY-MM-DD</code> format.</p></div>
-<div class="paragraph"><p><code>--date=raw</code> shows the date in the internal raw git format <code>%s %z</code> format.</p></div>
+<div class="paragraph"><p><code>--date=raw</code> shows the date in the internal raw Git format <code>%s %z</code> format.</p></div>
 <div class="paragraph"><p><code>--date=default</code> shows timestamps in the original timezone
 (either committer&#8217;s or author&#8217;s).</p></div>
 </dd>
@@ -2139,7 +2151,7 @@ Subject: [PATCH] &lt;title line&gt;</code></pre>
 <em>raw</em>
 </p>
 <div class="paragraph"><p>The <em>raw</em> format shows the entire commit exactly as
-stored in the commit object.  Notably, the SHA1s are
+stored in the commit object.  Notably, the SHA-1s are
 displayed in full, regardless of whether --abbrev or
 --no-abbrev are used, and <em>parents</em> information show the
 true parent commits, without taking grafts nor history
@@ -2199,7 +2211,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%aN</em>: author name (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%aN</em>: author name (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a>
+  or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -2209,7 +2222,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%aE</em>: author email (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%aE</em>: author email (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -2244,7 +2258,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%cN</em>: committer name (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%cN</em>: committer name (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -2254,7 +2269,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%cE</em>: committer email (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%cE</em>: committer email (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -2324,12 +2340,18 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%G?</em>: show either "G" for Good or "B" for Bad for a signed commit
+<em>%G?</em>: show "G" for a Good signature, "B" for a Bad signature, "U" for a good,
+  untrusted signature and "N" for no signature
 </p>
 </li>
 <li>
 <p>
 <em>%GS</em>: show the name of the signer for a signed commit
+</p>
+</li>
+<li>
+<p>
+<em>%GK</em>: show the key used to sign a signed commit
 </p>
 </li>
 <li>
@@ -2349,7 +2371,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%gN</em>: reflog identity name (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%gN</em>: reflog identity name (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -2359,7 +2382,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%gE</em>: reflog identity email (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%gE</em>: reflog identity email (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -2389,7 +2413,12 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%C(&#8230;)</em>: color specification, as described in color.branch.* config option
+<em>%C(&#8230;)</em>: color specification, as described in color.branch.* config option;
+  adding <code>auto,</code> at the beginning will emit color only when colors are
+  enabled for log output (by <code>color.diff</code>, <code>color.ui</code>, or <code>--color</code>, and
+  respecting the <code>auto</code> settings of the former if we are going to a
+  terminal). <code>auto</code> alone (i.e. <code>%C(auto)</code>) will turn on auto coloring
+  on the next placeholders until the color is switched again.
 </p>
 </li>
 <li>
@@ -2416,6 +2445,40 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 <p>
 <em>%w([&lt;w&gt;[,&lt;i1&gt;[,&lt;i2&gt;]]])</em>: switch line wrapping, like the -w option of
   <a href="git-shortlog.html">git-shortlog(1)</a>.
+</p>
+</li>
+<li>
+<p>
+<em>%&lt;(&lt;N&gt;[,trunc|ltrunc|mtrunc])</em>: make the next placeholder take at
+  least N columns, padding spaces on the right if necessary.
+  Optionally truncate at the beginning (ltrunc), the middle (mtrunc)
+  or the end (trunc) if the output is longer than N columns.
+  Note that truncating only works correctly with N &gt;= 2.
+</p>
+</li>
+<li>
+<p>
+<em>%&lt;|(&lt;N&gt;)</em>: make the next placeholder take at least until Nth
+  columns, padding spaces on the right if necessary
+</p>
+</li>
+<li>
+<p>
+<em>%&gt;(&lt;N&gt;)</em>, <em>%&gt;|(&lt;N&gt;)</em>: similar to <em>%&lt;(&lt;N&gt;)</em>, <em>%&lt;|(&lt;N&gt;)</em>
+  respectively, but padding spaces on the left
+</p>
+</li>
+<li>
+<p>
+<em>%&gt;&gt;(&lt;N&gt;)</em>, <em>%&gt;&gt;|(&lt;N&gt;)</em>: similar to <em>%&gt;(&lt;N&gt;)</em>, <em>%&gt;|(&lt;N&gt;)</em>
+  respectively, except that if the next placeholder takes more spaces
+  than given and there are spaces on its left, use those spaces
+</p>
+</li>
+<li>
+<p>
+<em>%&gt;&lt;(&lt;N&gt;)</em>, <em>%&gt;&lt;|(&lt;N&gt;)</em>: similar to <em>% &lt;(&lt;N&gt;)</em>, <em>%&lt;|(&lt;N&gt;)</em>
+  respectively, but padding both sides (i.e. the text is centered)
 </p>
 </li>
 </ul></div>
@@ -2551,6 +2614,56 @@ $ git log -2 --pretty=%h 4da45bef</code></pre>
 <p>
         Generate a diff using the "histogram diff" algorithm.
 </p>
+</dd>
+<dt class="hdlist1">
+--diff-algorithm={patience|minimal|histogram|myers}
+</dt>
+<dd>
+<p>
+        Choose a diff algorithm. The variants are as follows:
+</p>
+<div class="openblock">
+<div class="content">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<code>default</code>, <code>myers</code>
+</dt>
+<dd>
+<p>
+        The basic greedy diff algorithm. Currently, this is the default.
+</p>
+</dd>
+<dt class="hdlist1">
+<code>minimal</code>
+</dt>
+<dd>
+<p>
+        Spend extra time to make sure the smallest possible diff is
+        produced.
+</p>
+</dd>
+<dt class="hdlist1">
+<code>patience</code>
+</dt>
+<dd>
+<p>
+        Use "patience diff" algorithm when generating patches.
+</p>
+</dd>
+<dt class="hdlist1">
+<code>histogram</code>
+</dt>
+<dd>
+<p>
+        This algorithm extends the patience algorithm to "support
+        low-occurrence common elements".
+</p>
+</dd>
+</dl></div>
+</div></div>
+<div class="paragraph"><p>For instance, if you configured diff.algorithm variable to a
+non-default value and want to use the default one, then you
+have to use <code>--diff-algorithm=default</code> option.</p></div>
 </dd>
 <dt class="hdlist1">
 --stat[=&lt;width&gt;[,&lt;name-width&gt;[,&lt;count&gt;]]]
@@ -2744,8 +2857,8 @@ any of those replacements occurred.</p></div>
 <dd>
 <p>
         Show colored diff.
-        The value must be <code>always</code> (the default for <code>&lt;when&gt;</code>), <code>never</code>, or <code>auto</code>.
-        The default value is <code>never</code>.
+        <code>--color</code> (i.e. without <em>=&lt;when&gt;</em>) is the same as <code>--color=always</code>.
+        <em>&lt;when&gt;</em> can be one of <code>always</code>, <code>never</code>, or <code>auto</code>.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -2917,7 +3030,7 @@ few lines that happen to match textually as the context, but as a
 single deletion of everything old followed by a single insertion of
 everything new, and the number <code>m</code> controls this aspect of the -B
 option (defaults to 60%). <code>-B/70%</code> specifies that less than 30% of the
-original should remain in the result for git to consider it a total
+original should remain in the result for Git to consider it a total
 rewrite (i.e. otherwise the resulting patch will be a series of
 deletion and insertion mixed together with context lines).</p></div>
 <div class="paragraph"><p>When used with -M, a totally-rewritten file is also considered as the
@@ -2941,7 +3054,7 @@ another file.</p></div>
         <code>--follow</code>.
         If <code>n</code> is specified, it is a threshold on the similarity
         index (i.e. amount of addition/deletions compared to the
-        file&#8217;s size). For example, <code>-M90%</code> means git should consider a
+        file&#8217;s size). For example, <code>-M90%</code> means Git should consider a
         delete/add pair to be a rename if more than 90% of the file
         hasn&#8217;t changed.  Without a <code>%</code> sign, the number is to be read as
         a fraction, with a decimal point before it.  I.e., <code>-M5</code> becomes
@@ -3552,14 +3665,14 @@ two unresolved merge parents with the working tree file
 <div class="sect1">
 <h2 id="_discussion">Discussion</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>At the core level, git is character encoding agnostic.</p></div>
+<div class="paragraph"><p>At the core level, Git is character encoding agnostic.</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
 The pathnames recorded in the index and in the tree objects
    are treated as uninterpreted sequences of non-NUL bytes.
    What readdir(2) returns are what are recorded and compared
-   with the data git keeps track of, which in turn are expected
+   with the data Git keeps track of, which in turn are expected
    to be what lstat(2) and creat(2) accepts.  There is no such
    thing as pathname encoding translation.
 </p>
@@ -3579,9 +3692,9 @@ The commit log messages are uninterpreted sequences of non-NUL
 </li>
 </ul></div>
 <div class="paragraph"><p>Although we encourage that the commit log messages are encoded
-in UTF-8, both the core and git Porcelain are designed not to
+in UTF-8, both the core and Git Porcelain are designed not to
 force UTF-8 on projects.  If all participants of a particular
-project find it more convenient to use legacy encodings, git
+project find it more convenient to use legacy encodings, Git
 does not forbid it.  However, there are a few things to keep in
 mind.</p></div>
 <div class="olist arabic"><ol class="arabic">
@@ -3673,7 +3786,7 @@ log.showroot
 </p>
 </dd>
 <dt class="hdlist1">
-mailmap.file
+mailmap.*
 </dt>
 <dd>
 <p>
@@ -3710,7 +3823,7 @@ and overridden by the <code>--notes=&lt;ref&gt;</code> option.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-09-12 15:56:23 PDT
+Last updated 2013-04-26 17:05:16 PDT
 </div>
 </div>
 </body>

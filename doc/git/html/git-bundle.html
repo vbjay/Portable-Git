@@ -759,7 +759,7 @@ git-bundle(1) Manual Page
 <div class="sectionbody">
 <div class="paragraph"><p>Some workflows require that one or more branches of development on one
 machine be replicated on another machine, but the two machines cannot
-be directly connected, and therefore the interactive git protocols (git,
+be directly connected, and therefore the interactive Git protocols (git,
 ssh, rsync, http) cannot be used.  This command provides support for
 <em>git fetch</em> and <em>git pull</em> to operate by packaging objects and references
 in an archive at the originating machine, then importing those into
@@ -884,13 +884,12 @@ with an incremental bundle:</p></div>
 machineA$ git bundle create file.bundle master
 machineA$ git tag -f lastR2bundle master</code></pre>
 </div></div>
-<div class="paragraph"><p>Then you transfer file.bundle to the target machine B. If you are creating
-the repository on machine B, then you can clone from the bundle as if it
-were a remote repository instead of creating an empty repository and then
-pulling or fetching objects from the bundle:</p></div>
+<div class="paragraph"><p>Then you transfer file.bundle to the target machine B. Because this
+bundle does not require any existing object to be extracted, you can
+create a new repository on machine B by cloning from it:</p></div>
 <div class="listingblock">
 <div class="content">
-<pre><code>machineB$ git clone /home/me/tmp/file.bundle R2</code></pre>
+<pre><code>machineB$ git clone -b master /home/me/tmp/file.bundle R2</code></pre>
 </div></div>
 <div class="paragraph"><p>This will define a remote called "origin" in the resulting repository that
 lets you fetch and pull from the bundle. The $GIT_DIR/config file in R2 will
@@ -972,7 +971,7 @@ references when fetching:</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-05-02 15:00:44 PDT
+Last updated 2013-02-05 21:07:26 PST
 </div>
 </div>
 </body>

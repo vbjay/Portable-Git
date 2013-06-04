@@ -833,7 +833,7 @@ between the two operands.  The following two commands are equivalent:</p></div>
 <pre><code>        $ git rev-list A B --not $(git merge-base --all A B)
         $ git rev-list A...B</code></pre>
 </div></div>
-<div class="paragraph"><p><em>rev-list</em> is a very essential git command, since it
+<div class="paragraph"><p><em>rev-list</em> is a very essential Git command, since it
 provides the ability to build and traverse commit ancestry graphs. For
 this reason, it has a lot of different options that enables it to be
 used by commands as different as <em>git bisect</em> and
@@ -1750,7 +1750,7 @@ together.</p></div>
 </div>
 <div class="sect2">
 <h3 id="_object_traversal">Object Traversal</h3>
-<div class="paragraph"><p>These options are mostly targeted for packing of git repositories.</p></div>
+<div class="paragraph"><p>These options are mostly targeted for packing of Git repositories.</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
 --objects
@@ -1953,7 +1953,7 @@ e.g. "2 hours ago".</p></div>
 <div class="paragraph"><p><code>--date=rfc</code> (or <code>--date=rfc2822</code>) shows timestamps in RFC 2822
 format, often found in E-mail messages.</p></div>
 <div class="paragraph"><p><code>--date=short</code> shows only date but not time, in <code>YYYY-MM-DD</code> format.</p></div>
-<div class="paragraph"><p><code>--date=raw</code> shows the date in the internal raw git format <code>%s %z</code> format.</p></div>
+<div class="paragraph"><p><code>--date=raw</code> shows the date in the internal raw Git format <code>%s %z</code> format.</p></div>
 <div class="paragraph"><p><code>--date=default</code> shows timestamps in the original timezone
 (either committer&#8217;s or author&#8217;s).</p></div>
 </dd>
@@ -2179,7 +2179,7 @@ Subject: [PATCH] &lt;title line&gt;</code></pre>
 <em>raw</em>
 </p>
 <div class="paragraph"><p>The <em>raw</em> format shows the entire commit exactly as
-stored in the commit object.  Notably, the SHA1s are
+stored in the commit object.  Notably, the SHA-1s are
 displayed in full, regardless of whether --abbrev or
 --no-abbrev are used, and <em>parents</em> information show the
 true parent commits, without taking grafts nor history
@@ -2239,7 +2239,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%aN</em>: author name (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%aN</em>: author name (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a>
+  or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -2249,7 +2250,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%aE</em>: author email (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%aE</em>: author email (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -2284,7 +2286,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%cN</em>: committer name (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%cN</em>: committer name (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -2294,7 +2297,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%cE</em>: committer email (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%cE</em>: committer email (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -2364,12 +2368,18 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%G?</em>: show either "G" for Good or "B" for Bad for a signed commit
+<em>%G?</em>: show "G" for a Good signature, "B" for a Bad signature, "U" for a good,
+  untrusted signature and "N" for no signature
 </p>
 </li>
 <li>
 <p>
 <em>%GS</em>: show the name of the signer for a signed commit
+</p>
+</li>
+<li>
+<p>
+<em>%GK</em>: show the key used to sign a signed commit
 </p>
 </li>
 <li>
@@ -2389,7 +2399,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%gN</em>: reflog identity name (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%gN</em>: reflog identity name (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -2399,7 +2410,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%gE</em>: reflog identity email (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%gE</em>: reflog identity email (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -2429,7 +2441,12 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%C(&#8230;)</em>: color specification, as described in color.branch.* config option
+<em>%C(&#8230;)</em>: color specification, as described in color.branch.* config option;
+  adding <code>auto,</code> at the beginning will emit color only when colors are
+  enabled for log output (by <code>color.diff</code>, <code>color.ui</code>, or <code>--color</code>, and
+  respecting the <code>auto</code> settings of the former if we are going to a
+  terminal). <code>auto</code> alone (i.e. <code>%C(auto)</code>) will turn on auto coloring
+  on the next placeholders until the color is switched again.
 </p>
 </li>
 <li>
@@ -2456,6 +2473,40 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 <p>
 <em>%w([&lt;w&gt;[,&lt;i1&gt;[,&lt;i2&gt;]]])</em>: switch line wrapping, like the -w option of
   <a href="git-shortlog.html">git-shortlog(1)</a>.
+</p>
+</li>
+<li>
+<p>
+<em>%&lt;(&lt;N&gt;[,trunc|ltrunc|mtrunc])</em>: make the next placeholder take at
+  least N columns, padding spaces on the right if necessary.
+  Optionally truncate at the beginning (ltrunc), the middle (mtrunc)
+  or the end (trunc) if the output is longer than N columns.
+  Note that truncating only works correctly with N &gt;= 2.
+</p>
+</li>
+<li>
+<p>
+<em>%&lt;|(&lt;N&gt;)</em>: make the next placeholder take at least until Nth
+  columns, padding spaces on the right if necessary
+</p>
+</li>
+<li>
+<p>
+<em>%&gt;(&lt;N&gt;)</em>, <em>%&gt;|(&lt;N&gt;)</em>: similar to <em>%&lt;(&lt;N&gt;)</em>, <em>%&lt;|(&lt;N&gt;)</em>
+  respectively, but padding spaces on the left
+</p>
+</li>
+<li>
+<p>
+<em>%&gt;&gt;(&lt;N&gt;)</em>, <em>%&gt;&gt;|(&lt;N&gt;)</em>: similar to <em>%&gt;(&lt;N&gt;)</em>, <em>%&gt;|(&lt;N&gt;)</em>
+  respectively, except that if the next placeholder takes more spaces
+  than given and there are spaces on its left, use those spaces
+</p>
+</li>
+<li>
+<p>
+<em>%&gt;&lt;(&lt;N&gt;)</em>, <em>%&gt;&lt;|(&lt;N&gt;)</em>: similar to <em>% &lt;(&lt;N&gt;)</em>, <em>%&lt;|(&lt;N&gt;)</em>
+  respectively, but padding both sides (i.e. the text is centered)
 </p>
 </li>
 </ul></div>
@@ -2528,7 +2579,7 @@ $ git log -2 --pretty=%h 4da45bef</code></pre>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2011-11-15 13:45:02 PST
+Last updated 2013-02-05 21:07:26 PST
 </div>
 </div>
 </body>

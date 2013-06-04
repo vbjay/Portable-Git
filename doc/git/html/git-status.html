@@ -757,7 +757,7 @@ git-status(1) Manual Page
 <div class="paragraph"><p>Displays paths that have differences between the index file and the
 current HEAD commit, paths that have differences between the working
 tree and the index file, and paths in the working tree that are not
-tracked by git (and are not ignored by <a href="gitignore.html">gitignore(5)</a>). The first
+tracked by Git (and are not ignored by <a href="gitignore.html">gitignore(5)</a>). The first
 are what you <em>would</em> commit by running <code>git commit</code>; the second and
 third are what you <em>could</em> commit by running <em>git add</em> before running
 <code>git commit</code>.</p></div>
@@ -796,7 +796,7 @@ third are what you <em>could</em> commit by running <em>git add</em> before runn
 <p>
         Give the output in an easy-to-parse format for scripts.
         This is similar to the short output, but will remain stable
-        across git versions and regardless of user configuration. See
+        across Git versions and regardless of user configuration. See
         below for details.
 </p>
 </dd>
@@ -819,24 +819,29 @@ third are what you <em>could</em> commit by running <em>git add</em> before runn
         Show untracked files.
 </p>
 <div class="paragraph"><p>The mode parameter is optional (defaults to <em>all</em>), and is used to
-specify the handling of untracked files; when -u is not used, the
-default is <em>normal</em>, i.e. show untracked files and directories.</p></div>
+specify the handling of untracked files.</p></div>
 <div class="paragraph"><p>The possible options are:</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
-<em>no</em>     - Show no untracked files
+<em>no</em>     - Show no untracked files.
 </p>
 </li>
 <li>
 <p>
-<em>normal</em> - Shows untracked files and directories
+<em>normal</em> - Shows untracked files and directories.
 </p>
 </li>
 <li>
 <p>
 <em>all</em>    - Also shows individual files in untracked directories.
 </p>
+<div class="paragraph"><p>When <code>-u</code> option is not used, untracked files and directories are
+shown (i.e. the same as specifying <code>normal</code>), to help you avoid
+forgetting to add newly created files.  Because it takes extra work
+to find untracked files in the filesystem, this mode may take some
+time in a large working tree.  You can use <code>no</code> to have <code>git status</code>
+return more quickly without showing untracked files.</p></div>
 <div class="paragraph"><p>The default can be changed using the status.showUntrackedFiles
 configuration variable documented in <a href="git-config.html">git-config(1)</a>.</p></div>
 </li>
@@ -904,7 +909,7 @@ template comment, and all the output lines are prefixed with <em>#</em>.
 The default, long format, is designed to be human readable,
 verbose and descriptive.  Its contents and format are subject to change
 at any time.</p></div>
-<div class="paragraph"><p>The paths mentioned in the output, unlike many other git commands, are
+<div class="paragraph"><p>The paths mentioned in the output, unlike many other Git commands, are
 made relative to the current directory if you are working in a
 subdirectory (this is on purpose, to help cutting and pasting). See
 the status.relativePaths config option below.</p></div>
@@ -1000,7 +1005,7 @@ U           U    unmerged, both modified
 <div class="sect2">
 <h3 id="_porcelain_format">Porcelain Format</h3>
 <div class="paragraph"><p>The porcelain format is similar to the short format, but is guaranteed
-not to change in a backwards-incompatible way between git versions or
+not to change in a backwards-incompatible way between Git versions or
 based on user configuration. This makes it ideal for parsing by scripts.
 The description of the short format above also describes the porcelain
 format, with a few exceptions:</p></div>
@@ -1062,7 +1067,7 @@ shown (see --summary-limit option of <a href="git-submodule.html">git-submodule(
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-11-13 14:31:09 PST
+Last updated 2013-03-21 15:47:21 PDT
 </div>
 </div>
 </body>

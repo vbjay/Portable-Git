@@ -769,7 +769,7 @@ creates a <em>tag</em> object, and requires a tag message.  Unless
 in the tag message.</p></div>
 <div class="paragraph"><p>If <code>-m &lt;msg&gt;</code> or <code>-F &lt;file&gt;</code> is given and <code>-a</code>, <code>-s</code>, and <code>-u &lt;key-id&gt;</code>
 are absent, <code>-a</code> is implied.</p></div>
-<div class="paragraph"><p>Otherwise just a tag reference for the SHA1 object name of the commit object is
+<div class="paragraph"><p>Otherwise just a tag reference for the SHA-1 object name of the commit object is
 created (i.e. a lightweight tag).</p></div>
 <div class="paragraph"><p>A GnuPG signed tag object will be created when <code>-s</code> or <code>-u
 &lt;key-id&gt;</code> is used.  When <code>-u &lt;key-id&gt;</code> is not used, the
@@ -957,6 +957,18 @@ is used to specify custom GnuPG binary.</p></div>
         may restrict the characters allowed in a tag name.
 </p>
 </dd>
+<dt class="hdlist1">
+&lt;commit&gt;
+</dt>
+<dt class="hdlist1">
+&lt;object&gt;
+</dt>
+<dd>
+<p>
+        The object that the new tag will refer to, usually a commit.
+        Defaults to HEAD.
+</p>
+</dd>
 </dl></div>
 </div>
 </div>
@@ -1072,7 +1084,7 @@ to get the following updates...</code></pre>
 </div></div>
 <div class="paragraph"><p>In such a case, you do not want to automatically follow the other
 person&#8217;s tags.</p></div>
-<div class="paragraph"><p>One important aspect of git is its distributed nature, which
+<div class="paragraph"><p>One important aspect of Git is its distributed nature, which
 largely means there is no inherent "upstream" or
 "downstream" in the system.  On the face of it, the above
 example might seem to indicate that the tag namespace is owned
@@ -1178,7 +1190,7 @@ ISO 8601
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-12-21 15:43:34 PST
+Last updated 2013-04-21 19:25:38 PDT
 </div>
 </div>
 </body>

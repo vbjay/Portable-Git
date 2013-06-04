@@ -1023,7 +1023,7 @@ Subject: [PATCH] &lt;title line&gt;</code></pre>
 <em>raw</em>
 </p>
 <div class="paragraph"><p>The <em>raw</em> format shows the entire commit exactly as
-stored in the commit object.  Notably, the SHA1s are
+stored in the commit object.  Notably, the SHA-1s are
 displayed in full, regardless of whether --abbrev or
 --no-abbrev are used, and <em>parents</em> information show the
 true parent commits, without taking grafts nor history
@@ -1083,7 +1083,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%aN</em>: author name (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%aN</em>: author name (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a>
+  or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -1093,7 +1094,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%aE</em>: author email (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%aE</em>: author email (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -1128,7 +1130,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%cN</em>: committer name (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%cN</em>: committer name (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -1138,7 +1141,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%cE</em>: committer email (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%cE</em>: committer email (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -1208,12 +1212,18 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%G?</em>: show either "G" for Good or "B" for Bad for a signed commit
+<em>%G?</em>: show "G" for a Good signature, "B" for a Bad signature, "U" for a good,
+  untrusted signature and "N" for no signature
 </p>
 </li>
 <li>
 <p>
 <em>%GS</em>: show the name of the signer for a signed commit
+</p>
+</li>
+<li>
+<p>
+<em>%GK</em>: show the key used to sign a signed commit
 </p>
 </li>
 <li>
@@ -1233,7 +1243,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%gN</em>: reflog identity name (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%gN</em>: reflog identity name (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -1243,7 +1254,8 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%gE</em>: reflog identity email (respecting .mailmap, see <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
+<em>%gE</em>: reflog identity email (respecting .mailmap, see
+  <a href="git-shortlog.html">git-shortlog(1)</a> or <a href="git-blame.html">git-blame(1)</a>)
 </p>
 </li>
 <li>
@@ -1273,7 +1285,12 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </li>
 <li>
 <p>
-<em>%C(&#8230;)</em>: color specification, as described in color.branch.* config option
+<em>%C(&#8230;)</em>: color specification, as described in color.branch.* config option;
+  adding <code>auto,</code> at the beginning will emit color only when colors are
+  enabled for log output (by <code>color.diff</code>, <code>color.ui</code>, or <code>--color</code>, and
+  respecting the <code>auto</code> settings of the former if we are going to a
+  terminal). <code>auto</code> alone (i.e. <code>%C(auto)</code>) will turn on auto coloring
+  on the next placeholders until the color is switched again.
 </p>
 </li>
 <li>
@@ -1300,6 +1317,40 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 <p>
 <em>%w([&lt;w&gt;[,&lt;i1&gt;[,&lt;i2&gt;]]])</em>: switch line wrapping, like the -w option of
   <a href="git-shortlog.html">git-shortlog(1)</a>.
+</p>
+</li>
+<li>
+<p>
+<em>%&lt;(&lt;N&gt;[,trunc|ltrunc|mtrunc])</em>: make the next placeholder take at
+  least N columns, padding spaces on the right if necessary.
+  Optionally truncate at the beginning (ltrunc), the middle (mtrunc)
+  or the end (trunc) if the output is longer than N columns.
+  Note that truncating only works correctly with N &gt;= 2.
+</p>
+</li>
+<li>
+<p>
+<em>%&lt;|(&lt;N&gt;)</em>: make the next placeholder take at least until Nth
+  columns, padding spaces on the right if necessary
+</p>
+</li>
+<li>
+<p>
+<em>%&gt;(&lt;N&gt;)</em>, <em>%&gt;|(&lt;N&gt;)</em>: similar to <em>%&lt;(&lt;N&gt;)</em>, <em>%&lt;|(&lt;N&gt;)</em>
+  respectively, but padding spaces on the left
+</p>
+</li>
+<li>
+<p>
+<em>%&gt;&gt;(&lt;N&gt;)</em>, <em>%&gt;&gt;|(&lt;N&gt;)</em>: similar to <em>%&gt;(&lt;N&gt;)</em>, <em>%&gt;|(&lt;N&gt;)</em>
+  respectively, except that if the next placeholder takes more spaces
+  than given and there are spaces on its left, use those spaces
+</p>
+</li>
+<li>
+<p>
+<em>%&gt;&lt;(&lt;N&gt;)</em>, <em>%&gt;&lt;|(&lt;N&gt;)</em>: similar to <em>% &lt;(&lt;N&gt;)</em>, <em>%&lt;|(&lt;N&gt;)</em>
+  respectively, but padding both sides (i.e. the text is centered)
 </p>
 </li>
 </ul></div>
@@ -1417,14 +1468,14 @@ $ git log -2 --pretty=%h 4da45bef</code></pre>
 <div class="sect1">
 <h2 id="_discussion">Discussion</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>At the core level, git is character encoding agnostic.</p></div>
+<div class="paragraph"><p>At the core level, Git is character encoding agnostic.</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
 The pathnames recorded in the index and in the tree objects
    are treated as uninterpreted sequences of non-NUL bytes.
    What readdir(2) returns are what are recorded and compared
-   with the data git keeps track of, which in turn are expected
+   with the data Git keeps track of, which in turn are expected
    to be what lstat(2) and creat(2) accepts.  There is no such
    thing as pathname encoding translation.
 </p>
@@ -1444,9 +1495,9 @@ The commit log messages are uninterpreted sequences of non-NUL
 </li>
 </ul></div>
 <div class="paragraph"><p>Although we encourage that the commit log messages are encoded
-in UTF-8, both the core and git Porcelain are designed not to
+in UTF-8, both the core and Git Porcelain are designed not to
 force UTF-8 on projects.  If all participants of a particular
-project find it more convenient to use legacy encodings, git
+project find it more convenient to use legacy encodings, Git
 does not forbid it.  However, there are a few things to keep in
 mind.</p></div>
 <div class="olist arabic"><ol class="arabic">
