@@ -829,6 +829,18 @@ reference.</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
+-s
+</dt>
+<dt class="hdlist1">
+--no-patch
+</dt>
+<dd>
+<p>
+        Suppress diff output. Useful for commands like <code>git show</code> that
+        show the patch by default, or to cancel the effect of <code>--patch</code>.
+</p>
+</dd>
+<dt class="hdlist1">
 -U&lt;n&gt;
 </dt>
 <dt class="hdlist1">
@@ -1134,7 +1146,7 @@ another file.</p></div>
         a fraction, with a decimal point before it.  I.e., <code>-M5</code> becomes
         0.5, and is thus the same as <code>-M50%</code>.  Similarly, <code>-M05</code> is
         the same as <code>-M5%</code>.  To limit detection to exact renames, use
-        <code>-M100%</code>.
+        <code>-M100%</code>.  The default similarity index is 50%.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1249,6 +1261,14 @@ of a delete/create pair.</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
+--ignore-blank-lines
+</dt>
+<dd>
+<p>
+        Ignore changes whose lines are all blank.
+</p>
+</dd>
+<dt class="hdlist1">
 --inter-hunk-context=&lt;lines&gt;
 </dt>
 <dd>
@@ -1310,7 +1330,7 @@ of a delete/create pair.</p></div>
 <dd>
 <p>
         Ignore changes to submodules in the diff generation. &lt;when&gt; can be
-        either "none", "untracked", "dirty" or "all", which is the default
+        either "none", "untracked", "dirty" or "all", which is the default.
         Using "none" will consider the submodule modified when it either contains
         untracked or modified files or its HEAD differs from the commit recorded
         in the superproject and can be used to override any settings of the
@@ -1566,6 +1586,27 @@ will want to ensure that threading is disabled for <code>git send-email</code>.<
         The negated form <code>--no-cc</code> discards all <code>Cc:</code> headers added so
         far (from config or command line).
 </p>
+</dd>
+<dt class="hdlist1">
+--from
+</dt>
+<dt class="hdlist1">
+--from=&lt;ident&gt;
+</dt>
+<dd>
+<p>
+        Use <code>ident</code> in the <code>From:</code> header of each commit email. If the
+        author ident of the commit is not textually identical to the
+        provided <code>ident</code>, place a <code>From:</code> header in the body of the
+        message with the original author. If no <code>ident</code> is given, use
+        the committer ident.
+</p>
+<div class="paragraph"><p>Note that this option is only useful if you are actually sending the
+emails and want to identify yourself as the sender, but retain the
+original author (and <code>git am</code> will correctly pick up the in-body
+header). Note also that <code>git send-email</code> already handles this
+transformation for you, and this option should not be used if you are
+feeding the result to <code>git send-email</code>.</p></div>
 </dd>
 <dt class="hdlist1">
 --add-header=&lt;header&gt;
@@ -2055,7 +2096,7 @@ as e-mailable patches:
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2013-04-18 12:36:32 PDT
+Last updated 2013-08-20 08:40:27 PDT
 </div>
 </div>
 </body>

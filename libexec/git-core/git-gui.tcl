@@ -3,13 +3,13 @@
  if test "z$*" = zversion \
  || test "z$*" = z--version; \
  then \
-	echo 'git-gui version 0.17.GITGUI'; \
+	echo 'git-gui version 0.18.GITGUI'; \
 	exit; \
  fi; \
  argv0=$0; \
  exec 'wish' "$argv0" -- "$@"
 
-set appvers {0.17.GITGUI}
+set appvers {0.18.GITGUI}
 set copyright [string map [list (c) \u00a9] {
 Copyright (c) 2006-2010 Shawn Pearce, et. al.
 
@@ -134,6 +134,20 @@ proc strcat {args} {
 
 ::msgcat::mcload $oguimsg
 unset oguimsg
+
+######################################################################
+##
+## On Mac, bring the current Wish process window to front
+
+if {[tk windowingsystem] eq "aqua"} {
+	catch {
+		exec osascript -e [format {
+			tell application "System Events"
+				set frontmost of processes whose unix id is %d to true
+			end tell
+		} [pid]]
+	}
+}
 
 ######################################################################
 ##
@@ -3015,18 +3029,11 @@ blame {
 	set jump_spec {}
 	set is_path 0
 	foreach a $argv {
-		if {[file exists $a]} {
-			if {$path ne {}} usage
-			set path [normalize_relpath $a]
-			break
-		} elseif {[file exists $_prefix$a]} {
-			if {$path ne {}} usage
-			set path [normalize_relpath $_prefix$a]
-			break
-		}
+		set p [file join $_prefix $a]
 
-		if {$is_path} {
+		if {$is_path || [file exists $p]} {
 			if {$path ne {}} usage
+			set path [normalize_relpath $p]
 			break
 		} elseif {$a eq {--}} {
 			if {$path ne {}} {

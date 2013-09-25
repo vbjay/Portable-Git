@@ -1148,7 +1148,7 @@ ancillary user utilities.</p></div>
 </dt>
 <dd>
 <p>
-        Fetch from and merge with another repository or a local branch.
+        Fetch from and integrate with another repository or a local branch.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1771,7 +1771,7 @@ repositories.</p></div>
 </dt>
 <dd>
 <p>
-        Compares content and mode of blobs between the index and repository.
+        Compare a tree to the working tree or index.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -2022,6 +2022,14 @@ users typically do not use them directly.</p></div>
 <dd>
 <p>
         Debug gitignore / exclude files.
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="git-check-mailmap.html">git-check-mailmap(1)</a>
+</dt>
+<dd>
+<p>
+        Show canonical names and email addresses of contacts.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -2357,9 +2365,7 @@ Git so take care if using Cogito etc.</p></div>
 </dt>
 <dd>
 <p>
-        Set the path to the working tree.  The value will not be
-        used in combination with repositories found automatically in
-        a .git directory (i.e. $GIT_DIR is not set).
+        Set the path to the root of the working tree.
         This can also be controlled by the <em>--work-tree</em> command line
         option and the core.worktree configuration variable.
 </p>
@@ -2594,8 +2600,9 @@ for further details.</p></div>
 <p>
         If this environment variable is set to "1", then commands such
         as <em>git blame</em> (in incremental mode), <em>git rev-list</em>, <em>git log</em>,
-        and <em>git whatchanged</em> will force a flush of the output stream
-        after each commit-oriented record have been flushed.   If this
+        <em>git check-attr</em>, <em>git check-ignore</em>, and <em>git whatchanged</em> will
+        force a flush of the output stream after each record have been
+        flushed. If this
         variable is set to "0", the output of these commands will be done
         using completely buffered I/O.   If this environment variable is
         not set, Git will choose buffered or record-oriented flushing
@@ -2619,6 +2626,29 @@ for further details.</p></div>
         (starting with a <em>/</em> character), Git will interpret this
         as a file path and will try to write the trace messages
         into it.
+</p>
+</dd>
+<dt class="hdlist1">
+<em>GIT_TRACE_PACK_ACCESS</em>
+</dt>
+<dd>
+<p>
+        If this variable is set to a path, a file will be created at
+        the given path logging all accesses to any packs. For each
+        access, the pack file name and an offset in the pack is
+        recorded. This may be helpful for troubleshooting some
+        pack-related performance problems.
+</p>
+</dd>
+<dt class="hdlist1">
+<em>GIT_TRACE_PACKET</em>
+</dt>
+<dd>
+<p>
+        If this variable is set, it shows a trace of all packets
+        coming in or out of a given program. This can help with
+        debugging object negotiation or other protocol issues. Tracing
+        is turned off at a packet starting with "PACK".
 </p>
 </dd>
 <dt class="hdlist1">
@@ -2743,7 +2773,7 @@ subscribed to the list to send a message there.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2013-05-09 14:34:12 PDT
+Last updated 2013-08-23 13:46:51 PDT
 </div>
 </div>
 </body>

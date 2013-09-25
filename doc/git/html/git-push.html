@@ -748,7 +748,7 @@ git-push(1) Manual Page
 <div class="verseblock">
 <pre class="content"><em>git push</em> [--all | --mirror | --tags] [--follow-tags] [-n | --dry-run] [--receive-pack=&lt;git-receive-pack&gt;]
            [--repo=&lt;repository&gt;] [-f | --force] [--prune] [-v | --verbose] [-u | --set-upstream]
-           [&lt;repository&gt; [&lt;refspec&gt;&#8230;]]</pre>
+           [--no-verify] [&lt;repository&gt; [&lt;refspec&gt;&#8230;]]</pre>
 <div class="attribution">
 </div></div>
 </div>
@@ -934,6 +934,15 @@ already exists on the remote side.</p></div>
         not an ancestor of the local ref used to overwrite it.
         This flag disables the check.  This can cause the
         remote repository to lose commits; use it with care.
+        Note that <code>--force</code> applies to all the refs that are pushed,
+        hence using it with <code>push.default</code> set to <code>matching</code> or with
+        multiple push destinations configured with <code>remote.*.push</code>
+        may overwrite refs other than the current branch (including
+        local refs that are strictly behind their remote counterpart).
+        To force a push to only one branch, use a <code>+</code> in front of the
+        refspec to push (e.g <code>git push origin +master</code> to force a push
+        to the <code>master</code> branch). See the <code>&lt;refspec&gt;...</code> section above
+        for details.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1034,6 +1043,16 @@ useful if you write an alias or script around <em>git push</em>.</p></div>
         revisions it will also be aborted and exit with non-zero status.
 </p>
 </dd>
+<dt class="hdlist1">
+--[no-]verify
+</dt>
+<dd>
+<p>
+        Toggle the pre-push hook (see <a href="githooks.html">githooks(5)</a>).  The
+        default is --verify, giving the hook a chance to prevent the
+        push.  With --no-verify, the hook is bypassed completely.
+</p>
+</dd>
 </dl></div>
 </div>
 </div>
@@ -1048,6 +1067,8 @@ absent.</p></div>
 and ftps can be used for fetching and rsync can be used for fetching
 and pushing, but these are inefficient and deprecated; do not use
 them).</p></div>
+<div class="paragraph"><p>The native transport (i.e. git:// URL) does no authentication and
+should be used with caution on unsecured networks.</p></div>
 <div class="paragraph"><p>The following syntaxes may be used with them:</p></div>
 <div class="ulist"><ul>
 <li>
@@ -1084,6 +1105,11 @@ rsync://host.xz/path/to/repo.git/
 </p>
 </li>
 </ul></div>
+<div class="paragraph"><p>This syntax is only recognized if there are no slashes before the
+first colon. This helps differentiate a local path that contains a
+colon. For example the local path <code>foo:bar</code> could be specified as an
+absolute path or <code>./foo:bar</code> to avoid being misinterpreted as an ssh
+url.</p></div>
 <div class="paragraph"><p>The ssh and git protocols additionally support ~username expansion:</p></div>
 <div class="ulist"><ul>
 <li>
@@ -1112,7 +1138,7 @@ syntaxes may be used:</p></div>
 </li>
 <li>
 <p>
-<a href="file:///path/to/repo.git/">file:///path/to/repo.git/</a>
+file:///path/to/repo.git/
 </p>
 </li>
 </ul></div>
@@ -1642,7 +1668,7 @@ a <code>git gc</code> command on the origin repository.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2013-05-17 16:33:07 PDT
+Last updated 2013-08-20 08:40:27 PDT
 </div>
 </div>
 </body>

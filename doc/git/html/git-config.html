@@ -862,7 +862,7 @@ you try to use an invalid regexp (ret=6).
 <p>
         Get the value for a given key (optionally filtered by a regex
         matching the value). Returns error code 1 if the key was not
-        found and error code 2 if multiple key values were found.
+        found and the last value if multiple key values were found.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -891,12 +891,13 @@ you try to use an invalid regexp (ret=6).
 </dt>
 <dd>
 <p>
-        For writing options: write to global <sub>/.gitconfig file rather than
-        the repository .git/config, write to $XDG_CONFIG_HOME/git/config file
-        if this file exists and the </sub>/.gitconfig file doesn&#8217;t.
+        For writing options: write to global <code>~/.gitconfig</code> file
+        rather than the repository <code>.git/config</code>, write to
+        <code>$XDG_CONFIG_HOME/git/config</code> file if this file exists and the
+        <code>~/.gitconfig</code> file doesn&#8217;t.
 </p>
-<div class="paragraph"><p>For reading options: read only from global ~/.gitconfig and from
-$XDG_CONFIG_HOME/git/config rather than from all available files.</p></div>
+<div class="paragraph"><p>For reading options: read only from global <code>~/.gitconfig</code> and from
+<code>$XDG_CONFIG_HOME/git/config</code> rather than from all available files.</p></div>
 <div class="paragraph"><p>See also <a href="#FILES">[FILES]</a>.</p></div>
 </dd>
 <dt class="hdlist1">
@@ -904,11 +905,24 @@ $XDG_CONFIG_HOME/git/config rather than from all available files.</p></div>
 </dt>
 <dd>
 <p>
-        For writing options: write to system-wide $(prefix)/etc/gitconfig
-        rather than the repository .git/config.
+        For writing options: write to system-wide
+        <code>$(prefix)/etc/gitconfig</code> rather than the repository
+        <code>.git/config</code>.
 </p>
-<div class="paragraph"><p>For reading options: read only from system-wide $(prefix)/etc/gitconfig
+<div class="paragraph"><p>For reading options: read only from system-wide <code>$(prefix)/etc/gitconfig</code>
 rather than from all available files.</p></div>
+<div class="paragraph"><p>See also <a href="#FILES">[FILES]</a>.</p></div>
+</dd>
+<dt class="hdlist1">
+--local
+</dt>
+<dd>
+<p>
+        For writing options: write to the repository <code>.git/config</code> file.
+        This is the default behavior.
+</p>
+<div class="paragraph"><p>For reading options: read only from the repository <code>.git/config</code> rather than
+from all available files.</p></div>
 <div class="paragraph"><p>See also <a href="#FILES">[FILES]</a>.</p></div>
 </dd>
 <dt class="hdlist1">
@@ -920,6 +934,18 @@ rather than from all available files.</p></div>
 <dd>
 <p>
         Use the given config file instead of the one specified by GIT_CONFIG.
+</p>
+</dd>
+<dt class="hdlist1">
+--blob blob
+</dt>
+<dd>
+<p>
+        Similar to <em>--file</em> but use the given blob instead of a file. E.g.
+        you can use <em>master:.gitmodules</em> to read values from the file
+        <em>.gitmodules</em> in the master branch. See "SPECIFYING REVISIONS"
+        section in <a href="gitrevisions.html">gitrevisions(7)</a> for a more complete list of
+        ways to spell blob names.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1078,11 +1104,24 @@ rather than from all available files.</p></div>
 <em>git config</em> will search for configuration options:</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
-$GIT_DIR/config
+$(prefix)/etc/gitconfig
 </dt>
 <dd>
 <p>
-        Repository specific configuration file.
+        System-wide configuration file.
+</p>
+</dd>
+<dt class="hdlist1">
+$XDG_CONFIG_HOME/git/config
+</dt>
+<dd>
+<p>
+        Second user-specific configuration file. If $XDG_CONFIG_HOME is not set
+        or empty, <code>$HOME/.config/git/config</code> will be used. Any single-valued
+        variable set in this file will be overwritten by whatever is in
+        <code>~/.gitconfig</code>.  It is a good idea not to create this file if
+        you sometimes use older versions of Git, as support for this
+        file was added fairly recently.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1095,24 +1134,11 @@ $GIT_DIR/config
 </p>
 </dd>
 <dt class="hdlist1">
-$XDG_CONFIG_HOME/git/config
+$GIT_DIR/config
 </dt>
 <dd>
 <p>
-        Second user-specific configuration file. If $XDG_CONFIG_HOME is not set
-        or empty, $HOME/.config/git/config will be used. Any single-valued
-        variable set in this file will be overwritten by whatever is in
-        ~/.gitconfig.  It is a good idea not to create this file if
-        you sometimes use older versions of Git, as support for this
-        file was added fairly recently.
-</p>
-</dd>
-<dt class="hdlist1">
-$(prefix)/etc/gitconfig
-</dt>
-<dd>
-<p>
-        System-wide configuration file.
+        Repository specific configuration file.
 </p>
 </dd>
 </dl></div>
@@ -1121,6 +1147,9 @@ files that are available. If the global or the system-wide configuration
 file are not available they will be ignored. If the repository configuration
 file is not available or readable, <em>git config</em> will exit with a non-zero
 error code. However, in neither case will an error message be issued.</p></div>
+<div class="paragraph"><p>The files are read in the order given above, with last value found taking
+precedence over values read earlier.  When multiple values are taken then all
+values of a key from all files will be used.</p></div>
 <div class="paragraph"><p>All writing options will per default write to the repository specific
 configuration file. Note that this also affects options like <em>--replace-all</em>
 and <em>--unset</em>. <strong><em>git config</em> will only ever change one file at a time</strong>.</p></div>
@@ -1547,6 +1576,15 @@ amWorkDir
                 <a href="git-am.html">git-am(1)</a> fails to apply it.
 </p>
 </dd>
+<dt class="hdlist1">
+rmHints
+</dt>
+<dd>
+<p>
+                In case of failure in the output of <a href="git-rm.html">git-rm(1)</a>,
+                show directions on how to proceed from the current state.
+</p>
+</dd>
 </dl></div>
 </div></div>
 </dd>
@@ -1562,22 +1600,6 @@ core.fileMode
 <div class="paragraph"><p>The default is true, except <a href="git-clone.html">git-clone(1)</a> or <a href="git-init.html">git-init(1)</a>
 will probe and set core.fileMode false if appropriate when the
 repository is created.</p></div>
-</dd>
-<dt class="hdlist1">
-core.ignoreCygwinFSTricks
-</dt>
-<dd>
-<p>
-        This option is only used by Cygwin implementation of Git. If false,
-        the Cygwin stat() and lstat() functions are used. This may be useful
-        if your repository consists of a few separate directories joined in
-        one hierarchy using Cygwin mount. If true, Git uses native Win32 API
-        whenever it is possible and falls back to Cygwin functions only to
-        handle symbol links. The native mode is more than twice faster than
-        normal Cygwin l/stat() functions. True by default, unless core.filemode
-        is true, in which case ignoreCygwinFSTricks is ignored as Cygwin&#8217;s
-        POSIX emulation is required to support core.filemode.
-</p>
 </dd>
 <dt class="hdlist1">
 core.ignorecase
@@ -2592,9 +2614,10 @@ color.interactive
 <dd>
 <p>
         When set to <code>always</code>, always use colors for interactive prompts
-        and displays (such as those used by "git-add --interactive").
-        When false (or <code>never</code>), never.  When set to <code>true</code> or <code>auto</code>, use
-        colors only when the output is to the terminal. Defaults to false.
+        and displays (such as those used by "git-add --interactive" and
+        "git-clean --interactive"). When false (or <code>never</code>), never.
+        When set to <code>true</code> or <code>auto</code>, use colors only when the output is
+        to the terminal. Defaults to false.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -2602,11 +2625,11 @@ color.interactive.&lt;slot&gt;
 </dt>
 <dd>
 <p>
-        Use customized color for <em>git add --interactive</em>
-        output. <code>&lt;slot&gt;</code> may be <code>prompt</code>, <code>header</code>, <code>help</code> or <code>error</code>, for
-        four distinct types of normal output from interactive
-        commands.  The values of these variables may be specified as
-        in color.branch.&lt;slot&gt;.
+        Use customized color for <em>git add --interactive</em> and <em>git clean
+        --interactive</em> output. <code>&lt;slot&gt;</code> may be <code>prompt</code>, <code>header</code>, <code>help</code>
+        or <code>error</code>, for four distinct types of normal output from
+        interactive commands.  The values of these variables may be
+        specified as in color.branch.&lt;slot&gt;.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -2665,11 +2688,12 @@ color.ui
         as <code>color.diff</code> and <code>color.grep</code> that control the use of color
         per command family. Its scope will expand as more commands learn
         configuration to set a default for the <code>--color</code> option.  Set it
-        to <code>always</code> if you want all output not intended for machine
-        consumption to use color, to <code>true</code> or <code>auto</code> if you want such
-        output to use color when written to the terminal, or to <code>false</code> or
-        <code>never</code> if you prefer Git commands not to use color unless enabled
-        explicitly with some other configuration or the <code>--color</code> option.
+        to <code>false</code> or <code>never</code> if you prefer Git commands not to use
+        color unless enabled explicitly with some other configuration
+        or the <code>--color</code> option. Set it to <code>always</code> if you want all
+        output not intended for machine consumption to use color, to
+        <code>true</code> or <code>auto</code> (this is the default since Git 1.8.4) if you
+        want such output to use color when written to the terminal.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -2681,6 +2705,8 @@ column.ui
         This variable consists of a list of tokens separated by spaces
         or commas:
 </p>
+<div class="paragraph"><p>These options control when the feature should be enabled
+(defaults to <em>never</em>):</p></div>
 <div class="openblock">
 <div class="content">
 <div class="dlist"><dl>
@@ -2708,12 +2734,20 @@ column.ui
         show in columns if the output is to the terminal
 </p>
 </dd>
+</dl></div>
+</div></div>
+<div class="paragraph"><p>These options control layout (defaults to <em>column</em>).  Setting any
+of these implies <em>always</em> if none of <em>always</em>, <em>never</em>, or <em>auto</em> are
+specified.</p></div>
+<div class="openblock">
+<div class="content">
+<div class="dlist"><dl>
 <dt class="hdlist1">
 <code>column</code>
 </dt>
 <dd>
 <p>
-        fill columns before rows (default)
+        fill columns before rows
 </p>
 </dd>
 <dt class="hdlist1">
@@ -2732,6 +2766,13 @@ column.ui
         show in one column
 </p>
 </dd>
+</dl></div>
+</div></div>
+<div class="paragraph"><p>Finally, these options can be combined with a layout option (defaults
+to <em>nodense</em>):</p></div>
+<div class="openblock">
+<div class="content">
+<div class="dlist"><dl>
 <dt class="hdlist1">
 <code>dense</code>
 </dt>
@@ -2750,7 +2791,6 @@ column.ui
 </dd>
 </dl></div>
 </div></div>
-<div class="paragraph"><p>This option defaults to <em>never</em>.</p></div>
 </dd>
 <dt class="hdlist1">
 column.branch
@@ -2759,6 +2799,15 @@ column.branch
 <p>
         Specify whether to output branch listing in <code>git branch</code> in columns.
         See <code>column.ui</code> for details.
+</p>
+</dd>
+<dt class="hdlist1">
+column.clean
+</dt>
+<dd>
+<p>
+        Specify the layout when list items in <code>git clean -i</code>, which always
+        shows files and directories in columns. See <code>column.ui</code> for details.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -5024,61 +5073,72 @@ push.default
 </dt>
 <dd>
 <p>
-        Defines the action <code>git push</code> should take if no refspec is given
-        on the command line, no refspec is configured in the remote, and
-        no refspec is implied by any of the options given on the command
-        line. Possible values are:
+        Defines the action <code>git push</code> should take if no refspec is
+        explicitly given.  Different values are well-suited for
+        specific workflows; for instance, in a purely central workflow
+        (i.e. the fetch source is equal to the push destination),
+        <code>upstream</code> is probably what you want.  Possible values are:
 </p>
 <div class="openblock">
 <div class="content">
 <div class="ulist"><ul>
 <li>
 <p>
-<code>nothing</code> - do not push anything.
+<code>nothing</code> - do not push anything (error out) unless a refspec is
+  explicitly given. This is primarily meant for people who want to
+  avoid mistakes by always being explicit.
 </p>
 </li>
 <li>
 <p>
-<code>matching</code> - push all branches having the same name in both ends.
-  This is for those who prepare all the branches into a publishable
-  shape and then push them out with a single command.  It is not
-  appropriate for pushing into a repository shared by multiple users,
-  since locally stalled branches will attempt a non-fast forward push
-  if other users updated the branch.
- <br />
-  This is currently the default, but Git 2.0 will change the default
-  to <code>simple</code>.
+<code>current</code> - push the current branch to update a branch with the same
+  name on the receiving end.  Works in both central and non-central
+  workflows.
 </p>
 </li>
 <li>
 <p>
-<code>upstream</code> - push the current branch to its upstream branch
-  (<code>tracking</code> is a deprecated synonym for this).
-  With this, <code>git push</code> will update the same remote ref as the one which
-  is merged by <code>git pull</code>, making <code>push</code> and <code>pull</code> symmetrical.
-  See "branch.&lt;name&gt;.merge" for how to configure the upstream branch.
+<code>upstream</code> - push the current branch back to the branch whose
+  changes are usually integrated into the current branch (which is
+  called <code>@{upstream}</code>).  This mode only makes sense if you are
+  pushing to the same repository you would normally pull from
+  (i.e. central workflow).
 </p>
 </li>
 <li>
 <p>
-<code>simple</code> - like <code>upstream</code>, but refuses to push if the upstream
-  branch&#8217;s name is different from the local one. This is the safest
-  option and is well-suited for beginners. It will become the default
-  in Git 2.0.
+<code>simple</code> - in centralized workflow, work like <code>upstream</code> with an
+  added safety to refuse to push if the upstream branch&#8217;s name is
+  different from the local one.
 </p>
+<div class="paragraph"><p>When pushing to a remote that is different from the remote you normally
+pull from, work as <code>current</code>.  This is the safest option and is suited
+for beginners.</p></div>
+<div class="paragraph"><p>This mode will become the default in Git 2.0.</p></div>
 </li>
 <li>
 <p>
-<code>current</code> - push the current branch to a branch of the same name.
+<code>matching</code> - push all branches having the same name on both ends.
+  This makes the repository you are pushing to remember the set of
+  branches that will be pushed out (e.g. if you always push <em>maint</em>
+  and <em>master</em> there and no other branches, the repository you push
+  to will have these two branches, and your local <em>maint</em> and
+  <em>master</em> will be pushed there).
 </p>
+<div class="paragraph"><p>To use this mode effectively, you have to make sure <em>all</em> the
+branches you would push out are ready to be pushed out before
+running <em>git push</em>, as the whole point of this mode is to allow you
+to push all of the branches in one go.  If you usually finish work
+on only one branch and push out the result, while other branches are
+unfinished, this mode is not for you.  Also this mode is not
+suitable for pushing into a shared central repository, as other
+people may add new branches there, or update the tip of existing
+branches outside your control.</p></div>
+<div class="paragraph"><p>This is currently the default, but Git 2.0 will change the default
+to <code>simple</code>.</p></div>
 </li>
 </ul></div>
 </div></div>
-<div class="paragraph"><p>The <code>simple</code>, <code>current</code> and <code>upstream</code> modes are for those who want to
-push out a single branch after finishing work, even when the other
-branches are not yet ready to be pushed out. If you are working with
-other people to push into the same shared repository, you would want
-to use one of these.</p></div>
 </dd>
 <dt class="hdlist1">
 rebase.stat
@@ -5095,6 +5155,19 @@ rebase.autosquash
 <dd>
 <p>
         If set to true enable <em>--autosquash</em> option by default.
+</p>
+</dd>
+<dt class="hdlist1">
+rebase.autostash
+</dt>
+<dd>
+<p>
+        When set to true, automatically create a temporary stash
+        before the operation begins, and apply it after the operation
+        ends.  This means that you can run rebase on a dirty worktree.
+        However, use with care: the final stash application after a
+        successful rebase might result in non-trivial conflicts.
+        Defaults to false.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -5398,6 +5471,15 @@ sendemail.smtpssl
 </p>
 </dd>
 <dt class="hdlist1">
+sendemail.smtpsslcertpath
+</dt>
+<dd>
+<p>
+        Path to ca-certificates (either a directory or a single file).
+        Set it to an empty string to disable certificate verification.
+</p>
+</dd>
+<dt class="hdlist1">
 sendemail.&lt;identity&gt;.*
 </dt>
 <dd>
@@ -5508,6 +5590,24 @@ status.relativePaths
         current directory. Setting this variable to <code>false</code> shows paths
         relative to the repository root (this was the default for Git
         prior to v1.5.4).
+</p>
+</dd>
+<dt class="hdlist1">
+status.short
+</dt>
+<dd>
+<p>
+        Set to true to enable --short by default in <a href="git-status.html">git-status(1)</a>.
+        The option --no-short takes precedence over this variable.
+</p>
+</dd>
+<dt class="hdlist1">
+status.branch
+</dt>
+<dd>
+<p>
+        Set to true to enable --branch by default in <a href="git-status.html">git-status(1)</a>.
+        The option --no-branch takes precedence over this variable.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -5775,7 +5875,7 @@ web.browser
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2013-05-17 16:33:07 PDT
+Last updated 2013-08-20 08:40:27 PDT
 </div>
 </div>
 </body>

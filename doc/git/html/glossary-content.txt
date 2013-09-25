@@ -113,7 +113,7 @@ Note that commands that operate on the history of the current branch
 while the HEAD is detached. They update the HEAD to point at the tip
 of the updated history without affecting any branch.  Commands that
 update or inquire information _about_ the current branch (e.g. `git
-branch --set-upstream-to` that sets what remote tracking branch the
+branch --set-upstream-to` that sets what remote-tracking branch the
 current branch integrates with) obviously do not work, as there is no
 (real) current branch to ask about in this state.
 
@@ -267,7 +267,7 @@ This commit is referred to as a "merge commit", or sometimes just a
 	The default upstream <<def_repository,repository>>. Most projects have
 	at least one upstream project which they track. By default
 	'origin' is used for that purpose. New upstream updates
-	will be fetched into remote <<def_remote_tracking_branch,remote-tracking branches>> named
+	will be fetched into <<def_remote_tracking_branch,remote-tracking branches>> named
 	origin/name-of-upstream-branch, which you can see using
 	`git branch -r`.
 
@@ -400,12 +400,13 @@ should not be combined with other pathspec.
 	<<def_ref,ref>> and local ref.
 
 [[def_remote_tracking_branch]]remote-tracking branch::
-	A regular Git <<def_branch,branch>> that is used to follow changes from
-	another <<def_repository,repository>>. A remote-tracking
-	branch should not contain direct modifications or have local commits
-	made to it. A remote-tracking branch can usually be
-	identified as the right-hand-side <<def_ref,ref>> in a Pull:
-	<<def_refspec,refspec>>.
+	A <<def_ref,ref>> that is used to follow changes from another
+	<<def_repository,repository>>. It typically looks like
+	'refs/remotes/foo/bar' (indicating that it tracks a branch named
+	'bar' in a remote named 'foo'), and matches the right-hand-side of
+	a configured fetch <<def_refspec,refspec>>. A remote-tracking
+	branch should not contain direct modifications or have local
+	commits made to it.
 
 [[def_repository]]repository::
 	A collection of <<def_ref,refs>> together with an
