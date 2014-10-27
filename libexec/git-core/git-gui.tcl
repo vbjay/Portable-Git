@@ -3,13 +3,13 @@
  if test "z$*" = zversion \
  || test "z$*" = z--version; \
  then \
-	echo 'git-gui version 0.18.GITGUI'; \
+	echo 'git-gui version 0.19.GITGUI'; \
 	exit; \
  fi; \
  argv0=$0; \
  exec 'wish' "$argv0" -- "$@"
 
-set appvers {0.18.GITGUI}
+set appvers {0.19.GITGUI}
 set copyright [string map [list (c) \u00a9] {
 Copyright (c) 2006-2010 Shawn Pearce, et. al.
 
@@ -897,6 +897,7 @@ set default_config(gui.textconv) true
 set default_config(gui.pruneduringfetch) false
 set default_config(gui.trustmtime) false
 set default_config(gui.fastcopyblame) false
+set default_config(gui.maxrecentrepo) 10
 set default_config(gui.copyblamethreshold) 40
 set default_config(gui.blamehistoryctx) 7
 set default_config(gui.diffcontext) 5
@@ -915,6 +916,7 @@ set font_descs {
 	{fontdiff font_diff {mc "Diff/Console Font"}}
 }
 set default_config(gui.stageuntracked) ask
+set default_config(gui.displayuntracked) true
 
 ######################################################################
 ##
@@ -1291,7 +1293,11 @@ apply_config
 
 # v1.7.0 introduced --show-toplevel to return the canonical work-tree
 if {[package vsatisfies $_git_version 1.7.0]} {
-	set _gitworktree [git rev-parse --show-toplevel]
+	if { [is_Cygwin] } {
+		catch {set _gitworktree [exec cygpath --windows [git rev-parse --show-toplevel]]}
+	} else {
+		set _gitworktree [git rev-parse --show-toplevel]
+	}
 } else {
 	# try to set work tree from environment, core.worktree or use
 	# cdup to obtain a relative path to the top of the worktree. If
@@ -1556,18 +1562,23 @@ proc rescan_stage2 {fd after} {
 	set buf_rdf {}
 	set buf_rlo {}
 
-	set rescan_active 3
+	set rescan_active 2
 	ui_status [mc "Scanning for modified files ..."]
 	set fd_di [git_read diff-index --cached -z [PARENT]]
 	set fd_df [git_read diff-files -z]
-	set fd_lo [eval git_read ls-files --others -z $ls_others]
 
 	fconfigure $fd_di -blocking 0 -translation binary -encoding binary
 	fconfigure $fd_df -blocking 0 -translation binary -encoding binary
-	fconfigure $fd_lo -blocking 0 -translation binary -encoding binary
+
 	fileevent $fd_di readable [list read_diff_index $fd_di $after]
 	fileevent $fd_df readable [list read_diff_files $fd_df $after]
-	fileevent $fd_lo readable [list read_ls_others $fd_lo $after]
+
+	if {[is_config_true gui.displayuntracked]} {
+		set fd_lo [eval git_read ls-files --others -z $ls_others]
+		fconfigure $fd_lo -blocking 0 -translation binary -encoding binary
+		fileevent $fd_lo readable [list read_ls_others $fd_lo $after]
+		incr rescan_active
+	}
 }
 
 proc load_message {file {encoding {}}} {
@@ -2666,6 +2677,16 @@ if {![is_bare]} {
 	.mbar.repository add command \
 		-label [mc "Explore Working Copy"] \
 		-command {do_explore}
+}
+
+if {[is_Windows]} {
+	.mbar.repository add command \
+		-label [mc "Git Bash"] \
+		-command {eval exec [auto_execok start] \
+					  [list "Git Bash" bash --login -l &]}
+}
+
+if {[is_Windows] || ![is_bare]} {
 	.mbar.repository add separator
 }
 
@@ -3215,13 +3236,29 @@ unset i
 
 # -- Diff and Commit Area
 #
-${NS}::frame .vpane.lower -height 300 -width 400
-${NS}::frame .vpane.lower.commarea
-${NS}::frame .vpane.lower.diff -relief sunken -borderwidth 1
-pack .vpane.lower.diff -fill both -expand 1
-pack .vpane.lower.commarea -side bottom -fill x
-.vpane add .vpane.lower
-if {!$use_ttk} {.vpane paneconfigure .vpane.lower -sticky nsew}
+if {$have_tk85} {
+	${NS}::panedwindow .vpane.lower -orient vertical
+	${NS}::frame .vpane.lower.commarea
+	${NS}::frame .vpane.lower.diff -relief sunken -borderwidth 1 -height 500
+	.vpane.lower add .vpane.lower.diff
+	.vpane.lower add .vpane.lower.commarea
+	.vpane add .vpane.lower
+	if {$use_ttk} {
+		.vpane.lower pane .vpane.lower.diff -weight 1
+		.vpane.lower pane .vpane.lower.commarea -weight 0
+	} else {
+		.vpane.lower paneconfigure .vpane.lower.diff -stretch always
+		.vpane.lower paneconfigure .vpane.lower.commarea -stretch never
+	}
+} else {
+	frame .vpane.lower -height 300 -width 400
+	frame .vpane.lower.commarea
+	frame .vpane.lower.diff -relief sunken -borderwidth 1
+	pack .vpane.lower.diff -fill both -expand 1
+	pack .vpane.lower.commarea -side bottom -fill x
+	.vpane add .vpane.lower
+	.vpane paneconfigure .vpane.lower -sticky nsew
+}
 
 # -- Commit Area Buttons
 #

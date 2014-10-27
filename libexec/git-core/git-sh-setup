@@ -1,9 +1,6 @@
-#!/bin/sh
-#
-# This is included in commands that either have to be run from the toplevel
-# of the repository, or with GIT_DIR environment variable properly.
-# If the GIT_DIR does not look like the right correct git-repository,
-# it dies.
+# This shell scriplet is meant to be included by other shell scripts
+# to set up some variables pointing at the normal git directories and
+# a few helper shell functions.
 
 # Having this variable in your environment would break scripts because
 # you would cause "cd" to be taken to unexpected places.  If you
@@ -52,7 +49,7 @@ die () {
 die_with_status () {
 	status=$1
 	shift
-	echo >&2 "$*"
+	printf >&2 '%s\n' "$*"
 	exit "$status"
 }
 
@@ -104,6 +101,40 @@ $LONG_USAGE"
 	esac
 fi
 
+# Set the name of the end-user facing command in the reflog when the
+# script may update refs.  When GIT_REFLOG_ACTION is already set, this
+# will not overwrite it, so that a scripted Porcelain (e.g. "git
+# rebase") can set it to its own name (e.g. "rebase") and then call
+# another scripted Porcelain (e.g. "git am") and a call to this
+# function in the latter will keep the name of the end-user facing
+# program (e.g. "rebase") in GIT_REFLOG_ACTION, ensuring whatever it
+# does will be record as actions done as part of the end-user facing
+# operation (e.g. "rebase").
+#
+# NOTE NOTE NOTE: consequently, after assigning a specific message to
+# GIT_REFLOG_ACTION when calling a "git" command to record a custom
+# reflog message, do not leave that custom value in GIT_REFLOG_ACTION,
+# after you are done.  Other callers of "git" commands that rely on
+# writing the default "program name" in reflog expect the variable to
+# contain the value set by this function.
+#
+# To use a custom reflog message, do either one of these three:
+#
+# (a) use a single-shot export form:
+#     GIT_REFLOG_ACTION="$GIT_REFLOG_ACTION: preparing frotz" \
+#         git command-that-updates-a-ref
+#
+# (b) save the original away and restore:
+#     SAVED_ACTION=$GIT_REFLOG_ACTION
+#     GIT_REFLOG_ACTION="$GIT_REFLOG_ACTION: preparing frotz"
+#     git command-that-updates-a-ref
+#     GIT_REFLOG_ACITON=$SAVED_ACTION
+#
+# (c) assign the variable in a subshell:
+#     (
+#         GIT_REFLOG_ACTION="$GIT_REFLOG_ACTION: preparing frotz"
+#         git command-that-updates-a-ref
+#     )
 set_reflog_action() {
 	if [ -z "${GIT_REFLOG_ACTION:+set}" ]
 	then
@@ -129,7 +160,8 @@ git_pager() {
 		GIT_PAGER=cat
 	fi
 	: ${LESS=-FRSX}
-	export LESS
+	: ${LV=-c}
+	export LESS LV
 
 	eval "$GIT_PAGER" '"$@"'
 }
@@ -273,8 +305,10 @@ case $(uname -s) in
 	find () {
 		/usr/bin/find "$@"
 	}
-	# Let pwd always return the uniqe real windows path
-	alias pwd='pwd -W'
+	# git sees Windows-style pwd
+	pwd () {
+		builtin pwd -W
+	}
 	is_absolute_path () {
 		case "$1" in
 		[/\\]* | [A-Za-z]:*)

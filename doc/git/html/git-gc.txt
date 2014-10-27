@@ -9,7 +9,7 @@ git-gc - Cleanup unnecessary files and optimize the local repository
 SYNOPSIS
 --------
 [verse]
-'git gc' [--aggressive] [--auto] [--quiet] [--prune=<date> | --no-prune]
+'git gc' [--aggressive] [--auto] [--quiet] [--prune=<date> | --no-prune] [--force]
 
 DESCRIPTION
 -----------
@@ -72,6 +72,10 @@ automatic consolidation of packs.
 --quiet::
 	Suppress all progress reports.
 
+--force::
+	Force `git gc` to run even if there may be another `git gc`
+	instance running on this repository.
+
 Configuration
 -------------
 
@@ -119,6 +123,9 @@ the repository when the --aggressive option is specified.  The larger
 the value, the more time is spent optimizing the delta compression.  See
 the documentation for the --window' option in linkgit:git-repack[1] for
 more details.  This defaults to 250.
+
+Similarly, the optional configuration variable 'gc.aggressiveDepth'
+controls --depth option in linkgit:git-repack[1]. This defaults to 250.
 
 The optional configuration variable 'gc.pruneExpire' controls how old
 the unreferenced loose objects have to be before they are pruned.  The

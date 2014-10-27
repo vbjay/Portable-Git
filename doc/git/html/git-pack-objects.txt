@@ -51,8 +51,7 @@ base-name::
 	<base-name> to determine the name of the created file.
 	When this option is used, the two files are written in
 	<base-name>-<SHA-1>.{pack,idx} files.  <SHA-1> is a hash
-	of the sorted object names to make the resulting filename
-	based on the pack content, and written to the standard
+	based on the pack content and is written to the standard
 	output of the command.
 
 --stdout::
@@ -65,6 +64,8 @@ base-name::
 	the same way as 'git rev-list' with the `--objects` flag
 	uses its `commit` arguments to build the list of objects it
 	outputs.  The objects on the resulting list are packed.
+	Besides revisions, `--not` or `--shallow <SHA-1>` lines are
+	also accepted.
 
 --unpacked::
 	This implies `--revs`.  When processing the list of

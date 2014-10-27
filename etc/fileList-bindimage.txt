@@ -36,6 +36,7 @@ bin/gpgv.exe
 bin/grep.exe
 bin/gunzip.exe
 bin/gzip.exe
+bin/hd2u.exe
 bin/head.exe
 bin/iconv.exe
 bin/id.exe
@@ -74,11 +75,11 @@ bin/md5sum.exe
 bin/mkdir.exe
 bin/msmtp.exe
 bin/msys-1.0.dll
-bin/msys-crypto-0.9.8.dll
+bin/msys-crypto-1.0.0.dll
 bin/msys-minires.dll
 bin/msys-perl5_8.dll
 bin/msys-regex-1.dll
-bin/msys-ssl-0.9.8.dll
+bin/msys-ssl-1.0.0.dll
 bin/msys-z.dll
 bin/msysltdl-3.dll
 bin/mv.exe
@@ -117,6 +118,7 @@ bin/tr.exe
 bin/true.exe
 bin/uname.exe
 bin/uniq.exe
+bin/unix2dos.exe
 bin/unzip.exe
 bin/wc.exe
 bin/wish.exe
@@ -199,7 +201,6 @@ libexec/git-core/git-pack-objects.exe
 libexec/git-core/git-pack-redundant.exe
 libexec/git-core/git-pack-refs.exe
 libexec/git-core/git-patch-id.exe
-libexec/git-core/git-peek-remote.exe
 libexec/git-core/git-prune-packed.exe
 libexec/git-core/git-prune.exe
 libexec/git-core/git-push.exe
@@ -214,8 +215,8 @@ libexec/git-core/git-remote-http.exe
 libexec/git-core/git-remote-https.exe
 libexec/git-core/git-remote-testsvn.exe
 libexec/git-core/git-remote.exe
+libexec/git-core/git-repack.exe
 libexec/git-core/git-replace.exe
-libexec/git-core/git-repo-config.exe
 libexec/git-core/git-rerere.exe
 libexec/git-core/git-reset.exe
 libexec/git-core/git-rev-list.exe
@@ -234,7 +235,6 @@ libexec/git-core/git-status.exe
 libexec/git-core/git-stripspace.exe
 libexec/git-core/git-symbolic-ref.exe
 libexec/git-core/git-tag.exe
-libexec/git-core/git-tar-tree.exe
 libexec/git-core/git-unpack-file.exe
 libexec/git-core/git-unpack-objects.exe
 libexec/git-core/git-update-index.exe

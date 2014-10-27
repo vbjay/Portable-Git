@@ -29,9 +29,9 @@ that allow to change the behavior of a command.
 
 The parse-options API allows:
 
-* 'sticked' and 'separate form' of options with arguments.
-  `-oArg` is sticked, `-o Arg` is separate form.
-  `--option=Arg` is sticked, `--option Arg` is separate form.
+* 'stuck' and 'separate form' of options with arguments.
+  `-oArg` is stuck, `-o Arg` is separate form.
+  `--option=Arg` is stuck, `--option Arg` is separate form.
 
 * Long options may be 'abbreviated', as long as the abbreviation
   is unambiguous.
@@ -159,10 +159,6 @@ There are some macros to easily define options:
 	Introduce an integer option.
 	`int_var` is set to `integer` with `--option`, and
 	reset to zero with `--no-option`.
-
-`OPT_SET_PTR(short, long, &ptr_var, description, ptr)`::
-	Introduce a boolean option.
-	If used, set `ptr_var` to `ptr`.
 
 `OPT_STRING(short, long, &str_var, arg_str, description)`::
 	Introduce an option with string argument.

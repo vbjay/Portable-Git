@@ -69,7 +69,6 @@ libexec/git-core/git-pack-objects.exe
 libexec/git-core/git-pack-redundant.exe
 libexec/git-core/git-pack-refs.exe
 libexec/git-core/git-patch-id.exe
-libexec/git-core/git-peek-remote.exe
 libexec/git-core/git-prune-packed.exe
 libexec/git-core/git-prune.exe
 libexec/git-core/git-push.exe
@@ -79,8 +78,8 @@ libexec/git-core/git-reflog.exe
 libexec/git-core/git-remote-ext.exe
 libexec/git-core/git-remote-fd.exe
 libexec/git-core/git-remote.exe
+libexec/git-core/git-repack.exe
 libexec/git-core/git-replace.exe
-libexec/git-core/git-repo-config.exe
 libexec/git-core/git-rerere.exe
 libexec/git-core/git-reset.exe
 libexec/git-core/git-rev-list.exe
@@ -97,7 +96,6 @@ libexec/git-core/git-status.exe
 libexec/git-core/git-stripspace.exe
 libexec/git-core/git-symbolic-ref.exe
 libexec/git-core/git-tag.exe
-libexec/git-core/git-tar-tree.exe
 libexec/git-core/git-unpack-file.exe
 libexec/git-core/git-unpack-objects.exe
 libexec/git-core/git-update-index.exe

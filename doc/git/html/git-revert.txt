@@ -8,7 +8,7 @@ git-revert - Revert some existing commits
 SYNOPSIS
 --------
 [verse]
-'git revert' [--[no-]edit] [-n] [-m parent-number] [-s] <commit>...
+'git revert' [--[no-]edit] [-n] [-m parent-number] [-s] [-S[<key-id>]] <commit>...
 'git revert' --continue
 'git revert' --quit
 'git revert' --abort
@@ -59,7 +59,7 @@ brought in by the merge.  As a result, later merges will only bring in tree
 changes introduced by commits that are not ancestors of the previously
 reverted merge.  This may or may not be what you want.
 +
-See the link:howto/revert-a-faulty-merge.txt[revert-a-faulty-merge How-To] for
+See the link:howto/revert-a-faulty-merge.html[revert-a-faulty-merge How-To] for
 more details.
 
 --no-edit::
@@ -79,6 +79,10 @@ more details.
 +
 This is useful when reverting more than one commits'
 effect to your index in a row.
+
+-S[<key-id>]::
+--gpg-sign[=<key-id>]::
+	GPG-sign commits.
 
 -s::
 --signoff::

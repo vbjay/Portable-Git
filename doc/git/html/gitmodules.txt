@@ -35,6 +35,8 @@ submodule.<name>.url::
 	linkgit:git-clone[1] or (if it begins with ./ or ../) a location
 	relative to the superproject's origin repository.
 
+In addition, there are a number of optional keys:
+
 submodule.<name>.update::
 	Defines what to do when the submodule is updated by the superproject.
 	If 'checkout' (the default), the new commit specified in the
@@ -75,7 +77,8 @@ submodule.<name>.ignore::
 	the superproject, the setting there will override the one found in
 	.gitmodules.
 	Both settings can be overridden on the command line by using the
-	"--ignore-submodule" option.
+	"--ignore-submodule" option. The 'git submodule' commands are not
+	affected by this setting.
 
 
 EXAMPLES
