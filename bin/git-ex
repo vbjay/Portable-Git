@@ -1,2 +1,2 @@
 #!/bin/sh
-exec /share/GitExtensions/GitExtensions.exe "$@" &
+cmd //c start //B "GitExtensions.exe" "$@"

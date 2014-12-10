@@ -20,7 +20,7 @@ if [ $MSYSTEM == MINGW32 ]; then
 else
   export PATH=".:/usr/local/bin:/bin:/mingw/bin:$PATH"
 fi
-
+export PATH="$PATH:/share/GitExtensions"
 # strip out cygwin paths from PATH
 case "$PATH" in
 */cygwin/*)
