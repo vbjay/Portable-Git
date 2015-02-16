@@ -1,2 +1,4 @@
 #!/bin/sh
-exec /share/NPPlusPlus/notepad++.exe -nosession "$@"
+tmppth=$(winpath /share/NPPlusPlus/notepad++.exe)
+
+start $tmppth -nosession "$@"
