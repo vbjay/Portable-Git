@@ -17,7 +17,9 @@ Const strComputer = "."
 		If objProcess.GetOwner ( User, Domain ) = 0 Then
 			If LCase(User) = currUser Then
 				'Wscript.echo(objProcess.ExecutablePath & vbcrlf)
-				objProcess.Terminate() 
+				if MsgBox("Do you want to stop " & vbcrlf & objProcess.name,VBYesNo)=vbyes Then
+					objProcess.Terminate() 
+				end if
 			end if
 		end if
 	end if
