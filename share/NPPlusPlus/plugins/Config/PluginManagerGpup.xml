@@ -1,0 +1,5 @@
+<install>
+    <delete file="D:\git\PortableGit\share\NPPlusPlus\plugins\CodeAlignmentNpp.dll" />
+    <copy from="D:\git\PortableGit\share\NPPlusPlus\plugins\Config\plugin_install_temp\plugin1\CodeAlignmentNpp.dll" to="D:\git\PortableGit\share\NPPlusPlus\plugins\" replace="true" />
+    <copy from="D:\git\PortableGit\share\NPPlusPlus\plugins\Config\plugin_install_temp\plugin1\CodeAlignment\CodeAlignment.Common.dll" to="D:\git\PortableGit\share\NPPlusPlus\plugins\CodeAlignment" replace="true" />
+</install>
