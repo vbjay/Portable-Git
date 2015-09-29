@@ -1,2 +1,4 @@
 #!/bin/sh
-cmd //c start //B "GitExtensions.exe" "$@"
+tmppth=$(winpath /share/GitExtensions/GitExtensions.exe)
+
+start $tmppth "$@"
