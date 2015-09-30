@@ -1,0 +1,2 @@
+This is a flag file that determines if this is a portable version of git.
+If it exists, the home variable will point to the home folder in this folder.
